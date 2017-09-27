@@ -1,0 +1,506 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>Design Patterns &#8211; So many manuals, so little time</title>
+	<atom:link href="/tag/design-patterns/feed/" rel="self" type="application/rss+xml" />
+	<link>/</link>
+	<description>So many manuals, so little time</description>
+	<lastBuildDate>Sun, 03 Sep 2017 21:30:50 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=4.8.2</generator>
+	<item>
+		<title>Encapsulate and vary algorithm from the client that uses it(Strategy Pattern)</title>
+		<link>/encapsulate-vary-algorithm-client-uses-itstrategy-pattern/</link>
+		<comments>/encapsulate-vary-algorithm-client-uses-itstrategy-pattern/#respond</comments>
+		<pubDate>Sun, 10 Jul 2016 05:35:39 +0000</pubDate>
+		<dc:creator><![CDATA[ajitgoel]]></dc:creator>
+				<category><![CDATA[Post]]></category>
+		<category><![CDATA[.Net]]></category>
+		<category><![CDATA[C#]]></category>
+		<category><![CDATA[Design Patterns]]></category>
+		<category><![CDATA[OOAD]]></category>
+
+		<guid isPermaLink="false">http://blog-goel.rhcloud.com/?p=604</guid>
+		<description><![CDATA[<p>Strategy pattern is a software design pattern that enables an algorithm&#8217;s behavior to be selected at runtime. It a. defines a family of algorithms, b. encapsulates each algorithm, and c. makes the algorithms interchangeable within that family. Example:</p>
+<p>The post <a rel="nofollow" href="/encapsulate-vary-algorithm-client-uses-itstrategy-pattern/">Encapsulate and vary algorithm from the client that uses it(Strategy Pattern)</a> appeared first on <a rel="nofollow" href="/">So many manuals, so little time</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p><strong>Strategy pattern</strong> is a software design pattern that enables an algorithm&#8217;s behavior to be selected at runtime. It<br />
+a. defines a family of algorithms,<br />
+b. encapsulates each algorithm, and<br />
+c. makes the algorithms interchangeable within that family.</p>
+<p><strong>Example:</strong><br />
+<img class="aligncenter wp-image-1071 size-full" src="/wp-content/uploads/2016/07/StrategyDesignPattern.jpg" alt="Strategy Design Pattern" width="882" height="370" srcset="/wp-content/uploads/2016/07/StrategyDesignPattern.jpg 882w, /wp-content/uploads/2016/07/StrategyDesignPattern-300x126.jpg 300w, /wp-content/uploads/2016/07/StrategyDesignPattern-768x322.jpg 768w" sizes="(max-width: 882px) 100vw, 882px" /></p>
+<pre class="brush: csharp; highlight: [11,12,13,25,26,27,28,31,32,41,42,43,44,45]; title: ; notranslate">
+using System.Collections.Generic;
+
+class StrategyDesignPatternClient
+{
+    static void Main()
+    {
+        var sortedList = new SortedList();
+        sortedList.Add(&quot;name 1&quot;);
+        sortedList.Add(&quot;name 2&quot;);
+        sortedList.Add(&quot;name 3&quot;);
+        //The client passes the &quot;sort strategy&quot; to the SortedList 
+        //so the SortedList can use that passed strategy to sort the internal list
+        sortedList.SetSortStrategy(new QuickSort());
+        sortedList.Sort();
+    }
+}
+public class SortedList
+{
+    private List&amp;amp;lt;string&amp;amp;gt; list = new List&amp;amp;lt;string&amp;amp;gt;();
+    private SortStrategy sortstrategy;
+    public void SetSortStrategy(SortStrategy sortstrategy)
+    {
+        this.sortstrategy = sortstrategy;
+    }
+    public void Add(string name)
+    {
+        list.Add(name);
+    }
+    public void Sort()
+    {
+        //Ask the &quot;SortStrategy&quot; class to sort the list. 
+        sortstrategy.Sort(list);
+    }
+}
+public interface SortStrategy
+{
+    void Sort(List&amp;amp;lt;string&amp;amp;gt; list);
+}
+public class QuickSort : SortStrategy
+{
+    public void Sort(List&amp;amp;lt;string&amp;amp;gt; list)
+    {
+        // Default is Quicksort
+        list.Sort(); 
+    }
+}
+public class ShellSort : SortStrategy
+{
+    public void Sort(List&amp;amp;lt;string&amp;amp;gt; list)
+    {
+        // ShellSort the &quot;list&quot; collection here. 
+    }
+}
+public class MergeSort : SortStrategy
+{
+    public void Sort(List&amp;amp;lt;string&amp;amp;gt; list)
+    {
+        // MergeSort the &quot;list&quot; collection here. 
+    }
+}
+</pre>
+<p>The post <a rel="nofollow" href="/encapsulate-vary-algorithm-client-uses-itstrategy-pattern/">Encapsulate and vary algorithm from the client that uses it(Strategy Pattern)</a> appeared first on <a rel="nofollow" href="/">So many manuals, so little time</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>/encapsulate-vary-algorithm-client-uses-itstrategy-pattern/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Adapter Pattern with a twist</title>
+		<link>/adapter-pattern-with-a-twist/</link>
+		<comments>/adapter-pattern-with-a-twist/#respond</comments>
+		<pubDate>Sat, 23 Apr 2016 18:20:13 +0000</pubDate>
+		<dc:creator><![CDATA[ajitgoel]]></dc:creator>
+				<category><![CDATA[Post]]></category>
+		<category><![CDATA[.Net]]></category>
+		<category><![CDATA[C#]]></category>
+		<category><![CDATA[Design Patterns]]></category>
+		<category><![CDATA[Interview Questions]]></category>
+
+		<guid isPermaLink="false">http://blog-goel.rhcloud.com/?p=807</guid>
+		<description><![CDATA[<p>One of my friends recently went to an interview to a very well known startup company. It is supposed to hire only the very best people in the industry.  One of the problem that he was asked to white board was: You have a robot that can turn left and right. It can also move forward [&#8230;]</p>
+<p>The post <a rel="nofollow" href="/adapter-pattern-with-a-twist/">Adapter Pattern with a twist</a> appeared first on <a rel="nofollow" href="/">So many manuals, so little time</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>One of my friends recently went to an interview to a very well known startup company. It is supposed to hire only the very best people in the industry.  One of the problem that he was asked to white board was:</p>
+<p>You have a robot that can turn left and right. It can also move forward and backwards. You have a legacy robot that can only turn right and move forward. You want the legacy robot to turn left and to move backwards. Design a adapter class that would allow the legacy robot to turn right and to move backwards.</p>
+<p><strong>Solution</strong></p>
+<p><img class=" wp-image-808 aligncenter" src="http://blog-goel.rhcloud.com/wp-content/uploads/2016/04/AdapterDesignPatternWithATwist-251x300.jpg" alt="Adapter Design Pattern With A Twist" width="378" height="452" srcset="/wp-content/uploads/2016/04/AdapterDesignPatternWithATwist-251x300.jpg 251w, /wp-content/uploads/2016/04/AdapterDesignPatternWithATwist.jpg 455w" sizes="(max-width: 378px) 100vw, 378px" /></p>
+<pre class="brush: csharp; highlight: [46,47,48,51,52,53,59,62]; title: ; notranslate">
+using System;
+using System.Collections.Generic;
+using System.Linq;
+public interface IRobot
+{
+    void GoFront(int noOfSteps);
+    void GoBack(int noOfSteps);
+    void TurnRight(int degrees);
+    void TurnLeft(int degrees);
+}
+public class LegacyRobot
+{
+    public void GoFront(int noOfSteps)
+    {
+    }
+    public void TurnRight(int degrees)
+    {
+    }
+}
+public class Robot : IRobot
+{
+    public void GoFront(int noOfSteps)
+    {
+    }
+    public void GoBack(int noOfSteps)
+    {
+    }
+    public void TurnRight(int degrees)
+    {
+    }
+    public void TurnLeft(int degrees)
+    {
+    }
+}
+public class LegacyRobotAdapter : IRobot
+{
+    LegacyRobot legacyRobot;
+    public LegacyRobotAdapter(LegacyRobot legacyRobot)
+    {
+        this.legacyRobot = legacyRobot;
+    }
+    public void GoFront(int noOfSteps)
+    {
+        this.legacyRobot.GoFront(noOfSteps);
+    }
+    //The legacy robot can go back by turning right by 180 degrees
+    //then going front by the number of steps requested by the client
+    //then turning right by 180 degrees to be facing from where the robot started from. 
+    public void GoBack(int noOfSteps)
+    {
+        this.legacyRobot.TurnRight(180);
+        this.legacyRobot.GoFront(noOfSteps);
+        this.legacyRobot.TurnRight(180);
+    }
+    public void TurnRight(int degrees)
+    {
+        this.legacyRobot.TurnRight(degrees);
+    }
+    //The legacy robot can turn left by turning right by 360 degrees minus the client requested degrees to turn
+    public void TurnLeft(int degrees)
+    {
+        this.legacyRobot.TurnRight(360 - degrees);
+    }
+}
+</pre>
+<p>The post <a rel="nofollow" href="/adapter-pattern-with-a-twist/">Adapter Pattern with a twist</a> appeared first on <a rel="nofollow" href="/">So many manuals, so little time</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>/adapter-pattern-with-a-twist/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Ensure a class has only one instance and provide a global point of access to it(Singleton Pattern)</title>
+		<link>/ensure-a-class-has-only-one-instance-and-provide-a-global-point-of-access-to-itsingleton-pattern/</link>
+		<comments>/ensure-a-class-has-only-one-instance-and-provide-a-global-point-of-access-to-itsingleton-pattern/#respond</comments>
+		<pubDate>Sat, 23 Apr 2016 17:51:07 +0000</pubDate>
+		<dc:creator><![CDATA[ajitgoel]]></dc:creator>
+				<category><![CDATA[Post]]></category>
+		<category><![CDATA[.Net]]></category>
+		<category><![CDATA[C#]]></category>
+		<category><![CDATA[Design Patterns]]></category>
+
+		<guid isPermaLink="false">http://blog-goel.rhcloud.com/?p=721</guid>
+		<description><![CDATA[<p>Singleton Pattern: Ensure a class has only one instance and provide a global point of access to it. Solution: The code below uses Double-checked locking. See here for an explanation of double checked locking. Update(06/29/2016): Jon Skeet&#8217;s article here, does not recommend implementing singleton pattern using Solution 1 below. He instead recommend&#8217;s using .NET 4&#8217;s [&#8230;]</p>
+<p>The post <a rel="nofollow" href="/ensure-a-class-has-only-one-instance-and-provide-a-global-point-of-access-to-itsingleton-pattern/">Ensure a class has only one instance and provide a global point of access to it(Singleton Pattern)</a> appeared first on <a rel="nofollow" href="/">So many manuals, so little time</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p><strong>Singleton Pattern:<br />
+</strong>Ensure a class has only one instance and provide a global point of access to it.</p>
+<p><strong>Solution:</strong><br />
+The code below uses Double-checked locking. See <a href="https://en.wikipedia.org/wiki/Double-checked_locking">here</a> for an explanation of double checked locking.<br />
+<strong>Update(06/29/2016):</strong><br />
+Jon Skeet&#8217;s article <a href="http://csharpindepth.com/Articles/General/Singleton.aspx">here</a>, does not recommend implementing singleton pattern using Solution 1 below.<br />
+He instead recommend&#8217;s using .NET 4&#8217;s Lazy type, to implement a singleton pattern. The Lazy class internally uses double-checked locking by default to store either the exception that was thrown during construction, or the result of the function that was passed to Lazy.<br />
+I have implemented the same in Solution 2 below.</p>
+<p><strong>Solution 1(Not recommended):</strong></p>
+<p><img class="aligncenter wp-image-1085 size-full" src="/wp-content/uploads/2016/04/SingletonDesignPattern-2.jpg" alt="Singleton Design Pattern" width="608" height="230" srcset="/wp-content/uploads/2016/04/SingletonDesignPattern-2.jpg 608w, /wp-content/uploads/2016/04/SingletonDesignPattern-2-300x113.jpg 300w" sizes="(max-width: 608px) 100vw, 608px" /></p>
+<pre class="brush: csharp; highlight: [26,27,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47]; title: ; notranslate">
+using System;
+using System.Collections.Generic;
+using System.Text;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+public class UnitTest1
+{
+        [TestMethod]
+        public void SingletonTest()
+        {
+            var s1 = Singleton.Instance();
+            var s2 = Singleton.Instance();
+
+            if (s1 == s2)
+            {
+                Assert.IsTrue(true);
+            }
+            else
+            {
+                Assert.Fail();
+            }
+        }
+}
+public class Singleton
+{
+    private static Singleton singleton;
+    private static object tempObjectForLocking = new object();
+    private Singleton()
+    {
+    }
+     public static Singleton Instance()
+     {
+            if (singleton != null)//First check
+            {
+                return singleton;
+            }
+            lock (tempObjectForLocking)
+            {
+                //Multiple processes could access the code below at the same time, 
+                //therefore a &quot;null&quot; check has been added so only one process 
+                //can create a singleton instance. 
+                if (singleton == null)//Second(double) check
+                {
+                    singleton = new Singleton();
+                }
+            }
+            return singleton;
+     }
+}
+</pre>
+<p><strong>Solution 2(recommended):</strong></p>
+<pre class="brush: csharp; highlight: [24,25,26,27,29,30,31,32,33,34,35,36,37,38,39,40]; title: ; notranslate">
+using System;
+using System.Collections.Generic;
+using System.Text;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+public class UnitTest1
+{
+        [TestMethod]
+        public void SingletonTest()
+        {
+            var s1 = Singleton.Instance();
+            var s2 = Singleton.Instance();
+            if (s1 == s2)
+            {
+                Assert.IsTrue(true);
+            }
+            else
+            {
+                Assert.Fail();
+            }
+        }
+}
+public sealed class Singleton
+{
+    //Using the .NET 4's Lazy&lt;T&gt;; type, to implement a singleton pattern. 
+    //The Lazy&lt;T&gt;; class internally uses double-checked locking by default to 
+    //store either the exception that was thrown during construction, 
+    //or the result of the function that was passed to Lazy&lt;T&gt;.
+
+    private static readonly Lazy&lt;Singleton&gt; lazy = new Lazy&lt;Singleton&gt;
+    (
+      () =&gt; new Singleton()
+    );    
+    public static Singleton Instance 
+    { 
+      get 
+      { 
+        return lazy.Value; 
+      } 
+    }
+    private Singleton()
+    {
+    }
+}
+</pre>
+<p>The post <a rel="nofollow" href="/ensure-a-class-has-only-one-instance-and-provide-a-global-point-of-access-to-itsingleton-pattern/">Ensure a class has only one instance and provide a global point of access to it(Singleton Pattern)</a> appeared first on <a rel="nofollow" href="/">So many manuals, so little time</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>/ensure-a-class-has-only-one-instance-and-provide-a-global-point-of-access-to-itsingleton-pattern/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Avoid accidentally throwing a NullReferenceException and null object checking code(Null Object Pattern)</title>
+		<link>/avoid-accidentally-throwing-a-nullreferenceexception-and-null-object-checking-codenull-object-pattern/</link>
+		<comments>/avoid-accidentally-throwing-a-nullreferenceexception-and-null-object-checking-codenull-object-pattern/#respond</comments>
+		<pubDate>Fri, 22 Apr 2016 13:37:42 +0000</pubDate>
+		<dc:creator><![CDATA[ajitgoel]]></dc:creator>
+				<category><![CDATA[Post]]></category>
+		<category><![CDATA[.Net]]></category>
+		<category><![CDATA[C#]]></category>
+		<category><![CDATA[Design Patterns]]></category>
+
+		<guid isPermaLink="false">http://blog-goel.rhcloud.com/?p=745</guid>
+		<description><![CDATA[<p>Null Object Pattern: Avoid accidentally throwing a NullReferenceException and null object checking code.</p>
+<p>The post <a rel="nofollow" href="/avoid-accidentally-throwing-a-nullreferenceexception-and-null-object-checking-codenull-object-pattern/">Avoid accidentally throwing a NullReferenceException and null object checking code(Null Object Pattern)</a> appeared first on <a rel="nofollow" href="/">So many manuals, so little time</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p><strong>Null Object Pattern:</strong><br />
+Avoid accidentally throwing a NullReferenceException and null object checking code.</p>
+<p><img class="wp-image-793 aligncenter" src="http://blog-goel.rhcloud.com/wp-content/uploads/2016/04/NullObjectDesignPattern-300x252.jpg" alt="Null Object Design Pattern" width="747" height="628" srcset="/wp-content/uploads/2016/04/NullObjectDesignPattern-300x252.jpg 300w, /wp-content/uploads/2016/04/NullObjectDesignPattern.jpg 689w" sizes="(max-width: 747px) 100vw, 747px" /></p>
+<pre class="brush: csharp; highlight: [7,8,9,28,29,30,31,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88]; title: ; notranslate">
+using System;
+using System.Collections.Generic;
+using System.Linq;
+static void Main(string[] args)
+{
+    var user = new UserRepository().GetByID(1);
+    // Without the Null Object pattern, this line would throw an exception 
+    //if Id is anything other than 1
+    user.IncrementSessionTicket();
+    Console.ReadKey();
+}
+public interface IUserRepository
+{
+    IUser GetByID(int userID);
+}
+public class UserRepository : IUserRepository
+{
+    public UserRepository()
+    {
+        users = new List&lt;User&gt;
+        {
+            new User(1)
+        };
+    }
+    public IUser GetByID(int userID)
+    {
+        IUser userFound = users.SingleOrDefault(user =&gt; user.Id == userID);
+        if (userFound == null)
+        {
+            userFound = new NullUser();
+        }
+        return userFound;
+    }
+    private ICollection&lt;User&gt; users;
+}
+public interface IUser
+{
+    void IncrementSessionTicket();
+    bool IsNull { get; }
+}
+public class User : IUser
+{
+    public bool IsNull
+    {
+        get
+        {
+            return false;
+        }
+    }
+    public string Name
+    {
+        get
+        {
+            //return name.
+            throw new NotImplementedException();
+        }
+    }
+    internal int Id;
+    public User(int Id)
+    {
+        this.Id = Id;
+    }
+
+    public void IncrementSessionTicket()
+    {
+        //Do work. 
+    }
+}
+public class NullUser : IUser
+{
+    public void IncrementSessionTicket()
+    {
+        // do nothing
+    }
+    public string Name
+    {
+        get
+        {
+            return &quot;unknown&quot;;
+        }
+    }
+    public bool IsNull
+    {
+        get
+        {
+            return true;
+        }
+    }
+}
+</pre>
+<p>The post <a rel="nofollow" href="/avoid-accidentally-throwing-a-nullreferenceexception-and-null-object-checking-codenull-object-pattern/">Avoid accidentally throwing a NullReferenceException and null object checking code(Null Object Pattern)</a> appeared first on <a rel="nofollow" href="/">So many manuals, so little time</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>/avoid-accidentally-throwing-a-nullreferenceexception-and-null-object-checking-codenull-object-pattern/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Convert the interface of a class into another interface that the clients expects(Adapter Pattern)</title>
+		<link>/convert-the-interface-of-a-class-into-another-interface-that-the-clients-expectsadapter-pattern/</link>
+		<comments>/convert-the-interface-of-a-class-into-another-interface-that-the-clients-expectsadapter-pattern/#respond</comments>
+		<pubDate>Wed, 13 Apr 2016 18:07:29 +0000</pubDate>
+		<dc:creator><![CDATA[ajitgoel]]></dc:creator>
+				<category><![CDATA[Post]]></category>
+		<category><![CDATA[.Net]]></category>
+		<category><![CDATA[C#]]></category>
+		<category><![CDATA[Dependency injection]]></category>
+		<category><![CDATA[Design Patterns]]></category>
+
+		<guid isPermaLink="false">http://blog-goel.rhcloud.com/?p=576</guid>
+		<description><![CDATA[<p>Adapter pattern: Advantages of using a Adaptor pattern: Adapter pattern lets classes work together that couldn&#8217;t otherwise because of incompatible interfaces. The code is more maintainable. most of the applications using third party libraries use adapters as a middle layer between the application and the 3rd party library to decouple the application from the library. [&#8230;]</p>
+<p>The post <a rel="nofollow" href="/convert-the-interface-of-a-class-into-another-interface-that-the-clients-expectsadapter-pattern/">Convert the interface of a class into another interface that the clients expects(Adapter Pattern)</a> appeared first on <a rel="nofollow" href="/">So many manuals, so little time</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p><img class="aligncenter wp-image-575" src="http://blog-goel.rhcloud.com/wp-content/uploads/2016/04/AdapterPattern-300x155.jpg" alt="Adapter Pattern" width="656" height="339" srcset="/wp-content/uploads/2016/04/AdapterPattern-300x155.jpg 300w, /wp-content/uploads/2016/04/AdapterPattern.jpg 639w" sizes="(max-width: 656px) 100vw, 656px" /></p>
+<p><strong>Adapter pattern:</strong></p>
+<pre class="brush: csharp; title: ; notranslate">
+    class Program
+    {
+        static IExpectedInterface dependency = new Adapter(new TargetClass());
+        static void Main(string[] args)
+        {
+            dependency.MethodA();
+        }
+    }
+    public interface IExpectedInterface
+    {
+        void MethodA();
+    }
+    public class Adapter : IExpectedInterface
+    {
+        public Adapter(TargetClass target)
+        {
+            this.target = target;
+        }
+        public void MethodA()
+        {
+            target.MethodB();
+        }
+        private TargetClass target;
+    }
+    public class TargetClass
+    {
+        public void MethodB()
+        {
+        }
+    }
+</pre>
+<p><strong>Advantages of using a Adaptor pattern:</strong></p>
+<ul>
+<li>Adapter pattern lets classes work together that couldn&#8217;t otherwise because of incompatible interfaces.</li>
+<li>The code is more maintainable.</li>
+<li>most of the applications using third party libraries use adapters as a middle layer between the application and the 3rd party library to decouple the application from the library. If another library has to be used only an adapter for the new library is required without having to change the application code.</li>
+</ul>
+<p>The post <a rel="nofollow" href="/convert-the-interface-of-a-class-into-another-interface-that-the-clients-expectsadapter-pattern/">Convert the interface of a class into another interface that the clients expects(Adapter Pattern)</a> appeared first on <a rel="nofollow" href="/">So many manuals, so little time</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>/convert-the-interface-of-a-class-into-another-interface-that-the-clients-expectsadapter-pattern/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+	</channel>
+</rss>
+
+<!-- Performance optimized by W3 Total Cache. Learn more: https://www.w3-edge.com/products/
+
+ Served from: www.ajitgoel.net @ 2017-09-27 03:24:14 by W3 Total Cache -->

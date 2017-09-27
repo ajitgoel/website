@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>Post &#8211; So many manuals, so little time</title>
+	<atom:link href="/category/post/feed/" rel="self" type="application/rss+xml" />
+	<link>/</link>
+	<description>So many manuals, so little time</description>
+	<lastBuildDate>Sun, 03 Sep 2017 21:30:50 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=4.8.2</generator>
+	<item>
+		<title>Filter network requests when debugging.</title>
+		<link>/filter-network-requests-using-google-chrome-developer-tools/</link>
+		<comments>/filter-network-requests-using-google-chrome-developer-tools/#respond</comments>
+		<pubDate>Sun, 13 Aug 2017 02:28:44 +0000</pubDate>
+		<dc:creator><![CDATA[ajitgoel]]></dc:creator>
+				<category><![CDATA[Post]]></category>
+		<category><![CDATA[Debugging]]></category>
+
+		<guid isPermaLink="false">/?p=1331</guid>
+		<description><![CDATA[<p>When you are debugging, you would like to filter out the various requests so you can concentrate on what&#8217;s important eg: filter image or css file requests. Google has finally listened to the developer community and has added support for &#8220;negative filters&#8221; in Google Chrome-version 42. Here is the text filter I use when debugging [&#8230;]</p>
+<p>The post <a rel="nofollow" href="/filter-network-requests-using-google-chrome-developer-tools/">Filter network requests when debugging.</a> appeared first on <a rel="nofollow" href="/">So many manuals, so little time</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>When you are debugging, you would like to filter out the various requests so you can concentrate on what&#8217;s important eg: filter image or css file requests. Google has finally listened to the developer community and has added support for &#8220;negative filters&#8221; in Google Chrome-version 42.<br />
+Here is the text filter I use when debugging where the &#8220;-&#8221; sign before each file extension keyword filters the requests. The requests then do not show in the &#8220;Network&#8221; tab:</p>
+<pre class="brush: csharp; title: ; notranslate">-png -svg -aspx -axd -jpg -css -ttf -js -gif -ico -woff2</pre>
+<p><img class="alignnone wp-image-1341 size-full" src="/wp-content/uploads/2017/08/2017-08-14-08_55_09-Clipboard.jpg" alt="" width="772" height="96" srcset="/wp-content/uploads/2017/08/2017-08-14-08_55_09-Clipboard.jpg 772w, /wp-content/uploads/2017/08/2017-08-14-08_55_09-Clipboard-300x37.jpg 300w, /wp-content/uploads/2017/08/2017-08-14-08_55_09-Clipboard-768x96.jpg 768w" sizes="(max-width: 772px) 100vw, 772px" /><br />
+When you are adding the text filter make sure that the &#8220;Regex&#8221; checkbox is unchecked.</p>
+<p>You can further filter the requests by using the following supported keywords</p>
+<p><img src="/wp-content/uploads/2017/08/081317_0228_Filternetwo2.png" alt="" /></p>
+<p>eg:</p>
+<pre class="brush: csharp; title: ; notranslate">-mime-type:image/png,-larger-than:20k,-domain:yoursite.com,-status-code:404</pre>
+<p>The post <a rel="nofollow" href="/filter-network-requests-using-google-chrome-developer-tools/">Filter network requests when debugging.</a> appeared first on <a rel="nofollow" href="/">So many manuals, so little time</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>/filter-network-requests-using-google-chrome-developer-tools/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Configure fiddler to not capture requests for certain domains</title>
+		<link>/configure-fiddler-to-not-capture-requests-for-certain-domains/</link>
+		<comments>/configure-fiddler-to-not-capture-requests-for-certain-domains/#respond</comments>
+		<pubDate>Fri, 24 Mar 2017 18:27:55 +0000</pubDate>
+		<dc:creator><![CDATA[ajitgoel]]></dc:creator>
+				<category><![CDATA[Post]]></category>
+		<category><![CDATA[Fiddler]]></category>
+
+		<guid isPermaLink="false">/?p=1314</guid>
+		<description><![CDATA[<p>When you are debugging using fiddler, fiddler generally captures requests from all the domains. An easy way to not capture requests from certain domains is to use the build in &#8220;filters&#8221; tab in fiddler. Use the &#8220;Hide the following hosts&#8221; dropdown and key in the list of all the domains that you want to hide. [&#8230;]</p>
+<p>The post <a rel="nofollow" href="/configure-fiddler-to-not-capture-requests-for-certain-domains/">Configure fiddler to not capture requests for certain domains</a> appeared first on <a rel="nofollow" href="/">So many manuals, so little time</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>When you are debugging using fiddler, fiddler generally captures requests from all the domains. An easy way to not capture requests from certain domains is to use the build in &#8220;filters&#8221; tab in fiddler. Use the &#8220;Hide the following hosts&#8221; dropdown and key in the list of all the domains that you want to hide. </p>
+<p><img src="/wp-content/uploads/2017/03/032417_1827_Configurefi1.png" alt=""/></p>
+<p>If you want more granular control then you can override the OnBeforeRequest method in Fiddler&#8217;s script using <a href="http://www.telerik.com/download/fiddler/fiddlerscript-editor">Fiddler&#8217;s Script Editor</a>.<br />
+<img src="/wp-content/uploads/2017/03/032417_1827_Configurefi2.png" alt=""/></p>
+<pre class="brush: csharp; highlight: [1,3,4,5,6,7,8,9,10,11,12,13,14]; title: ; notranslate">
+static function OnBeforeRequest(oSession: Session) {        
+        if (
+        	oSession.HostnameIs(&quot;www.google.com&quot;) || 
+        	oSession.HostnameIs(&quot;inbox.google.com&quot;) || 
+        	oSession.HostnameIs(&quot;13.client-channel.google.com&quot;) || 
+        	oSession.HostnameIs(&quot;d.docs.live.net&quot;) || 
+        	oSession.HostnameIs(&quot;slack.com&quot;) || 
+        	oSession.HostnameIs(&quot;notifications.google.com&quot;) || 
+        	oSession.HostnameIs(&quot;play.google.com&quot;) || 
+        	oSession.HostnameIs(&quot;cello.client-channel.google.com&quot;) || 
+        	oSession.HostnameIs(&quot;lp-push-server-777.lastpass.com&quot;) || 
+        	oSession.HostnameIs(&quot;ssl.gstatic.com&quot;) || 
+        	oSession.HostnameIs(&quot;clients4.google.com&quot;) || 
+        	oSession.HostnameIs(&quot;clients1.google.com&quot;)
+        )
+        {  
+            oSession[&quot;ui-hide&quot;] = &quot;hidden&quot;;    
+        }
+        //code omitted for brevity
+}
+</pre>
+<p>The post <a rel="nofollow" href="/configure-fiddler-to-not-capture-requests-for-certain-domains/">Configure fiddler to not capture requests for certain domains</a> appeared first on <a rel="nofollow" href="/">So many manuals, so little time</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>/configure-fiddler-to-not-capture-requests-for-certain-domains/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Access Team Foundation Server Source Control from Windows Explorer</title>
+		<link>/access-team-foundation-server-source-control-from-windows-explorer/</link>
+		<comments>/access-team-foundation-server-source-control-from-windows-explorer/#respond</comments>
+		<pubDate>Thu, 16 Mar 2017 14:58:33 +0000</pubDate>
+		<dc:creator><![CDATA[ajitgoel]]></dc:creator>
+				<category><![CDATA[Post]]></category>
+		<category><![CDATA[Team Foundation Service]]></category>
+		<category><![CDATA[TFS]]></category>
+		<category><![CDATA[Tips & Tricks]]></category>
+
+		<guid isPermaLink="false">/?p=1300</guid>
+		<description><![CDATA[<p>I lot of times when I search for a file in Agent Ransack and I want to check who made the last change in TFS source control, I have to switch to Visual studio and check the history for that file in TFS source control. An easier way to do this is to install Microsoft [&#8230;]</p>
+<p>The post <a rel="nofollow" href="/access-team-foundation-server-source-control-from-windows-explorer/">Access Team Foundation Server Source Control from Windows Explorer</a> appeared first on <a rel="nofollow" href="/">So many manuals, so little time</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>I lot of times when I search for a file in Agent Ransack and I want to check who made the last change in TFS source control, I have to switch to Visual studio and check the history for that file in TFS source control. An easier way to do this is to install <a href="https://marketplace.visualstudio.com/items?itemName=TFSPowerToolsTeam.MicrosoftVisualStudioTeamFoundationServer2015Power">Microsoft Visual Studio Team Foundation Server Power tools</a>. Microsoft Visual Studio Team Foundation Server Power tools provides integration between windows explorer and TFS source control. Please see the screenshots below.
+</p>
+<p><img src="/wp-content/uploads/2017/03/031617_1458_AccessTeamF1.png" alt=""/>
+	</p>
+<p>
+ </p>
+<p><img src="/wp-content/uploads/2017/03/031617_1458_AccessTeamF2.png" alt=""/>
+	</p>
+<p>
+ </p>
+<p>
+ </p>
+<p><img src="/wp-content/uploads/2017/03/031617_1458_AccessTeamF3.png" alt=""/>
+	</p>
+<p>
+ </p>
+<p>The post <a rel="nofollow" href="/access-team-foundation-server-source-control-from-windows-explorer/">Access Team Foundation Server Source Control from Windows Explorer</a> appeared first on <a rel="nofollow" href="/">So many manuals, so little time</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>/access-team-foundation-server-source-control-from-windows-explorer/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Fiddler not capturing traffic from browsers</title>
+		<link>/fiddler-not-capturing-traffic-from-browsers/</link>
+		<comments>/fiddler-not-capturing-traffic-from-browsers/#respond</comments>
+		<pubDate>Mon, 13 Mar 2017 17:50:19 +0000</pubDate>
+		<dc:creator><![CDATA[ajitgoel]]></dc:creator>
+				<category><![CDATA[Post]]></category>
+		<category><![CDATA[Debugging]]></category>
+		<category><![CDATA[Fiddler]]></category>
+
+		<guid isPermaLink="false">/?p=1292</guid>
+		<description><![CDATA[<p>Sometimes when you are trying to capture browser traffic for debugging, Fiddler does not capture the same. One of the options to try is to make sure that the &#8220;Use Filters&#8221; checkbox is unchecked in the &#8220;Filters&#8221; tab in Fiddler. You can also troubleshoot filters to see which filters are hiding your traffic. If this [&#8230;]</p>
+<p>The post <a rel="nofollow" href="/fiddler-not-capturing-traffic-from-browsers/">Fiddler not capturing traffic from browsers</a> appeared first on <a rel="nofollow" href="/">So many manuals, so little time</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>Sometimes when you are trying to capture browser traffic for debugging, Fiddler does not capture the same.<br />
+One of the options to try is to make sure that the &#8220;Use Filters&#8221; checkbox is unchecked in the &#8220;Filters&#8221; tab in Fiddler.</p>
+<p><img src="/wp-content/uploads/2017/03/031317_1750_Fiddlernotc1.png" alt="" /></p>
+<p>You can also troubleshoot filters to see which filters are hiding your traffic.</p>
+<p><img src="/wp-content/uploads/2017/03/031317_1750_Fiddlernotc2.png" alt="" /></p>
+<p><img src="/wp-content/uploads/2017/03/031317_1750_Fiddlernotc3.png" alt="" /></p>
+<p>If this does not work then you might have an extension (Like ZenMate or TunnelBear) installed that might have messed with your traffic. You might need to disable those extensions to ensure that Fiddler captures all the traffic from the browser.</p>
+<p>The post <a rel="nofollow" href="/fiddler-not-capturing-traffic-from-browsers/">Fiddler not capturing traffic from browsers</a> appeared first on <a rel="nofollow" href="/">So many manuals, so little time</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>/fiddler-not-capturing-traffic-from-browsers/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Improve performance of T-sql statements containing encrypted columns.</title>
+		<link>/improve-performance-of-t-sql-statements-containing-encrypted-columns-2/</link>
+		<comments>/improve-performance-of-t-sql-statements-containing-encrypted-columns-2/#respond</comments>
+		<pubDate>Wed, 08 Mar 2017 15:32:25 +0000</pubDate>
+		<dc:creator><![CDATA[ajitgoel]]></dc:creator>
+				<category><![CDATA[Post]]></category>
+		<category><![CDATA[Performance Optimization]]></category>
+		<category><![CDATA[SQL server]]></category>
+		<category><![CDATA[T-SQL]]></category>
+
+		<guid isPermaLink="false">/?p=1279</guid>
+		<description><![CDATA[<p>We can use database level encryption to encrypt sensitive information. A commonly used level of encryption is to only encrypt columns that contain sensitive information like credit card numbers, date of birth etc. Encrypting and decrypting database level information is very CPU resource intensive. If a column is used as a primary key or used [&#8230;]</p>
+<p>The post <a rel="nofollow" href="/improve-performance-of-t-sql-statements-containing-encrypted-columns-2/">Improve performance of T-sql statements containing encrypted columns.</a> appeared first on <a rel="nofollow" href="/">So many manuals, so little time</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>We can use database level encryption to encrypt sensitive information. A commonly used level of encryption is to only encrypt columns that contain sensitive information like credit card numbers, date of birth etc. Encrypting and decrypting database level information is very CPU  resource intensive. If a column is used as a primary key or used in comparison clauses (WHERE clauses, JOIN conditions) the database will have to decrypt the whole column to perform operations involving those columns.</p>
+<p>We faced a similar performance issue in one of the previous companies. Database selects based on SSN were very slow as the database had to decrypt the whole column to perform comparison. If you look at the information below(under <strong>Current Problem</strong>) the database performed 4413 logical reads, 4406 read-ahead reads and took 302 milli seconds to perform the operation. </p>
+<p>To improve the performance of these kinds of queries, we decided to store the last four digits of the SSN in clear text and index the column as a non-clustered index. First filtering the rows based on last four digits of the SSN and then filtering the rows based on SSN lead to a dramatic improvement in performance. f you look at the information below(under <strong>Improved Solution</strong>) the database performed 27 logical reads, 10 physical reads 10, 8 read-ahead reads and took 71 milli seconds to perform the operation.<br />
+All in all a huge performance improvement. </p>
+<p><strong>Current Problem:</strong></p>
+<pre class="brush: csharp; title: ; notranslate">
+begin
+DBCC FREEPROCCACHE;
+DBCC DROPCLEANBUFFERS;
+SET STATISTICS TIME ON;
+SET STATISTICS IO ON;
+
+declare @ssn varchar(max) = '123123123'
+with PersonalIdentifierInformationCTE as
+(
+select CONVERT (CHAR(32), DECRYPTBYKEYAUTOCERT(CERT_ID('CertificateName'), NULL, Identifier)) as Identifier
+from PersonalIdentifierInformation
+)
+select *
+from PersonalIdentifierInformationCTE where Identifier is not null
+and Identifier=@ssn
+end
+</pre>
+<pre class="brush: csharp; highlight: [6,7,8,11]; title: ; notranslate">
+DBCC execution completed. If DBCC printed error messages, contact your system administrator.
+DBCC execution completed. If DBCC printed error messages, contact your system administrator.
+SQL Server Execution Times:
+CPU time = 0 ms, elapsed time = 0 ms.
+(8 row(s) affected)
+Table 'PersonalIdentifierInformation'. Scan count 1, logical reads 4413, 
+physical reads 3, read-ahead reads 4406, lob logical reads 0, 
+lob physical reads 0, lob read-ahead reads 0.
+(1 row(s) affected)
+SQL Server Execution Times:
+CPU time = 250 ms, elapsed time = 302 ms.
+SQL Server parse and compile time:
+CPU time = 0 ms, elapsed time = 0 ms.
+SQL Server Execution Times:
+CPU time = 0 ms, elapsed time = 0 ms.
+</pre>
+<p><img src="/wp-content/uploads/2017/03/030817_1532_Improveperf1.png" alt="" /></p>
+<p><img src="/wp-content/uploads/2017/03/030817_1532_Improveperf2.png" alt="" /></p>
+<p><strong>Improved Solution:</strong></p>
+<pre class="brush: csharp; highlight: [16,17]; title: ; notranslate">
+begin
+declare @ssn varchar(max) = '123123123'
+
+DBCC FREEPROCCACHE;
+DBCC DROPCLEANBUFFERS;
+SET STATISTICS TIME ON;
+SET STATISTICS IO ON;
+
+with PersonalIdentifierInformationCTE as 
+(
+select CONVERT (CHAR(32), DECRYPTBYKEYAUTOCERT(CERT_ID('CertificateName'), NULL, Identifier)) as Identifier, SSNLast4
+from PersonalIdentifierInformation
+)
+select *
+from PersonalIdentifierInformationCTE 
+where SSNLast4&lt;&gt; 0 and SSNLast4 = substring(@ssn, LEN(@ssn)-4+1, LEN(@ssn)) 
+and Identifier is not null
+and  Identifier=@ssn
+end
+</pre>
+<pre class="brush: csharp; highlight: [20,21,22,25]; title: ; notranslate">
+SQL Server parse and compile time: 
+   CPU time = 0 ms, elapsed time = 0 ms.
+ SQL Server Execution Times:
+   CPU time = 0 ms,  elapsed time = 0 ms.
+SQL Server parse and compile time: 
+   CPU time = 0 ms, elapsed time = 13 ms.
+ SQL Server Execution Times:
+   CPU time = 0 ms,  elapsed time = 0 ms.
+DBCC execution completed. If DBCC printed error messages, contact your system administrator.
+ SQL Server Execution Times:
+   CPU time = 0 ms,  elapsed time = 2 ms.
+DBCC execution completed. If DBCC printed error messages, contact your system administrator.
+ SQL Server Execution Times:
+   CPU time = 16 ms,  elapsed time = 16 ms.
+ SQL Server Execution Times:
+   CPU time = 0 ms,  elapsed time = 0 ms.
+ SQL Server Execution Times:
+   CPU time = 0 ms,  elapsed time = 0 ms.
+    (8 row(s) affected)
+Table 'PersonalIdentifierInformation'. Scan count 1, logical reads 27, 
+physical reads 10, read-ahead reads 8, lob logical reads 0, 
+lob physical reads 0, lob read-ahead reads 0.
+    (1 row(s) affected)
+ SQL Server Execution Times:
+   CPU time = 0 ms,  elapsed time = 71 ms.
+SQL Server parse and compile time: 
+   CPU time = 0 ms, elapsed time = 0 ms.
+ SQL Server Execution Times:
+   CPU time = 0 ms,  elapsed time = 0 ms.
+</pre>
+<p><img src="/wp-content/uploads/2017/03/030817_1532_Improveperf3.png" alt="" /></p>
+<p><img src="/wp-content/uploads/2017/03/030817_1532_Improveperf4.png" alt="" /></p>
+<p>The post <a rel="nofollow" href="/improve-performance-of-t-sql-statements-containing-encrypted-columns-2/">Improve performance of T-sql statements containing encrypted columns.</a> appeared first on <a rel="nofollow" href="/">So many manuals, so little time</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>/improve-performance-of-t-sql-statements-containing-encrypted-columns-2/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Only step into our files when debugging in Chrome Developer tools.</title>
+		<link>/only-step-into-our-files-when-debugging-in-chrome-developer-tools/</link>
+		<comments>/only-step-into-our-files-when-debugging-in-chrome-developer-tools/#respond</comments>
+		<pubDate>Mon, 06 Mar 2017 19:56:59 +0000</pubDate>
+		<dc:creator><![CDATA[ajitgoel]]></dc:creator>
+				<category><![CDATA[Post]]></category>
+		<category><![CDATA[Debugging]]></category>
+		<category><![CDATA[Javascript]]></category>
+
+		<guid isPermaLink="false">/?p=1262</guid>
+		<description><![CDATA[<p>A lot of times when we are debugging our front end javascript code using Chrome Developer tools, the system steps into other files. To avoid this, we can ask the debugger to ignore these files by &#8220;blackboxing&#8221; them. To do this, right click on the file and click &#8220;blackbox script&#8221; To get to the blackboxed [&#8230;]</p>
+<p>The post <a rel="nofollow" href="/only-step-into-our-files-when-debugging-in-chrome-developer-tools/">Only step into our files when debugging in Chrome Developer tools.</a> appeared first on <a rel="nofollow" href="/">So many manuals, so little time</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>A lot of times when we are debugging our front end javascript code using Chrome Developer tools,</p>
+<p><img src="/wp-content/uploads/2017/03/030617_1956_Onlystepint1.png" alt="" /></p>
+<p>the system steps into other files. To avoid this, we can ask the debugger to ignore these files by &#8220;blackboxing&#8221; them. To do this, right click on the file and click &#8220;blackbox script&#8221;</p>
+<p><img src="/wp-content/uploads/2017/03/030617_1956_Onlystepint2.png" alt="" /></p>
+<p>To get to the blackboxed files, go to the &#8220;settings&#8221; section by clicking on the symbol as shown below or press F1.</p>
+<p><img src="/wp-content/uploads/2017/03/030617_1956_Onlystepint3.png" alt="" /></p>
+<p>The &#8220;blackboxing&#8221; tab shows all the files that have been blackboxed.</p>
+<p><img src="/wp-content/uploads/2017/03/030617_1956_Onlystepint4.png" alt="" /></p>
+<p>The post <a rel="nofollow" href="/only-step-into-our-files-when-debugging-in-chrome-developer-tools/">Only step into our files when debugging in Chrome Developer tools.</a> appeared first on <a rel="nofollow" href="/">So many manuals, so little time</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>/only-step-into-our-files-when-debugging-in-chrome-developer-tools/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Workaround for websites forcing you to turn off adblocker.</title>
+		<link>/workaround-websites-forcing-turn-off-adblocker/</link>
+		<comments>/workaround-websites-forcing-turn-off-adblocker/#respond</comments>
+		<pubDate>Thu, 29 Dec 2016 21:56:37 +0000</pubDate>
+		<dc:creator><![CDATA[ajitgoel]]></dc:creator>
+				<category><![CDATA[Post]]></category>
+		<category><![CDATA[To-Do]]></category>
+
+		<guid isPermaLink="false">/?p=1236</guid>
+		<description><![CDATA[<p>A lot of websites do not allow you to view their content if you have a ad blocker enabled in your browser. A simple and fastest workaround for this issue is to turn off javascript on the website. After javascript has been disabled, please reload the webpage to see the blocked content.</p>
+<p>The post <a rel="nofollow" href="/workaround-websites-forcing-turn-off-adblocker/">Workaround for websites forcing you to turn off adblocker.</a> appeared first on <a rel="nofollow" href="/">So many manuals, so little time</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>A lot of websites do not allow you to view their content if you have a ad blocker enabled in your browser.</p>
+<p><img class="aligncenter wp-image-1237 " src="/wp-content/uploads/2016/12/2016-12-29_15-50-53-1024x529.png" width="549" height="284" srcset="/wp-content/uploads/2016/12/2016-12-29_15-50-53-1024x529.png 1024w, /wp-content/uploads/2016/12/2016-12-29_15-50-53-300x155.png 300w, /wp-content/uploads/2016/12/2016-12-29_15-50-53-768x397.png 768w, /wp-content/uploads/2016/12/2016-12-29_15-50-53.png 1360w" sizes="(max-width: 549px) 100vw, 549px" /></p>
+<p>A simple and fastest workaround for this issue is to turn off javascript on the website. After javascript has been disabled, please reload the webpage to see the blocked content.</p>
+<p><img class="aligncenter wp-image-1238 " src="/wp-content/uploads/2016/12/Turn-Off-Javascript-For-Site.png" width="348" height="571" srcset="/wp-content/uploads/2016/12/Turn-Off-Javascript-For-Site.png 503w, /wp-content/uploads/2016/12/Turn-Off-Javascript-For-Site-183x300.png 183w" sizes="(max-width: 348px) 100vw, 348px" /></p>
+<p>The post <a rel="nofollow" href="/workaround-websites-forcing-turn-off-adblocker/">Workaround for websites forcing you to turn off adblocker.</a> appeared first on <a rel="nofollow" href="/">So many manuals, so little time</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>/workaround-websites-forcing-turn-off-adblocker/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Edit videos in Youtube</title>
+		<link>/rotate-or-stabilize-videos-in-youtube/</link>
+		<comments>/rotate-or-stabilize-videos-in-youtube/#respond</comments>
+		<pubDate>Sun, 23 Oct 2016 18:53:53 +0000</pubDate>
+		<dc:creator><![CDATA[ajitgoel]]></dc:creator>
+				<category><![CDATA[Post]]></category>
+		<category><![CDATA[To-Do]]></category>
+
+		<guid isPermaLink="false">/?p=1224</guid>
+		<description><![CDATA[<p>You can edit your videos very easily in youtube. To start log into your youtube account, select the video you want to edit then click the enhancements button. You can now rotate the videos either left or right. Sometimes the videos that you have shot(perhaps using your phone) are very shaky. In this case, youtube [&#8230;]</p>
+<p>The post <a rel="nofollow" href="/rotate-or-stabilize-videos-in-youtube/">Edit videos in Youtube</a> appeared first on <a rel="nofollow" href="/">So many manuals, so little time</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>You can edit your videos very easily in youtube. To start log into your youtube account, select the video you want to edit then click the enhancements button.</p>
+<p><img class="aligncenter wp-image-1225 size-large" src="/wp-content/uploads/2016/10/2016-10-23-14_45_37-Sta-school-renuion-2016-YouTube-1024x484.png" alt="2016-10-23-14_45_37-sta-school-renuion-2016-youtube" width="665" height="314" srcset="/wp-content/uploads/2016/10/2016-10-23-14_45_37-Sta-school-renuion-2016-YouTube-1024x484.png 1024w, /wp-content/uploads/2016/10/2016-10-23-14_45_37-Sta-school-renuion-2016-YouTube-300x142.png 300w, /wp-content/uploads/2016/10/2016-10-23-14_45_37-Sta-school-renuion-2016-YouTube-768x363.png 768w, /wp-content/uploads/2016/10/2016-10-23-14_45_37-Sta-school-renuion-2016-YouTube.png 1349w" sizes="(max-width: 665px) 100vw, 665px" /></p>
+<p>You can now rotate the videos either left or right. Sometimes the videos that you have shot(perhaps using your phone) are very shaky. In this case, youtube can also stabilize the videos for you. In this case, click the stabilize button and click the save button.</p>
+<p><img class="aligncenter wp-image-1226 size-large" src="/wp-content/uploads/2016/10/2016-10-23-14_47_01-YouTube-1024x504.png" alt="2016-10-23-14_47_01-youtube" width="665" height="327" srcset="/wp-content/uploads/2016/10/2016-10-23-14_47_01-YouTube-1024x504.png 1024w, /wp-content/uploads/2016/10/2016-10-23-14_47_01-YouTube-300x148.png 300w, /wp-content/uploads/2016/10/2016-10-23-14_47_01-YouTube-768x378.png 768w, /wp-content/uploads/2016/10/2016-10-23-14_47_01-YouTube.png 1350w" sizes="(max-width: 665px) 100vw, 665px" /></p>
+<p>The post <a rel="nofollow" href="/rotate-or-stabilize-videos-in-youtube/">Edit videos in Youtube</a> appeared first on <a rel="nofollow" href="/">So many manuals, so little time</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>/rotate-or-stabilize-videos-in-youtube/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Document database using SchemaSpy and Graphviz</title>
+		<link>/document-database-using-schemaspy-and-graphviz/</link>
+		<comments>/document-database-using-schemaspy-and-graphviz/#respond</comments>
+		<pubDate>Fri, 05 Aug 2016 14:21:53 +0000</pubDate>
+		<dc:creator><![CDATA[ajitgoel]]></dc:creator>
+				<category><![CDATA[Post]]></category>
+		<category><![CDATA[Graphviz]]></category>
+		<category><![CDATA[SchemaSpy]]></category>
+		<category><![CDATA[SQL server]]></category>
+
+		<guid isPermaLink="false">/?p=1190</guid>
+		<description><![CDATA[<p>SchemaSpy is a Java-based tool (requires Java 5 or higher) that analyzes the metadata of a schema in a database and generates a visual representation of it in a browser-displayable format. It lets you click through the hierarchy of database tables via child and parent table relationships as represented by both HTML links and entity-relationship [&#8230;]</p>
+<p>The post <a rel="nofollow" href="/document-database-using-schemaspy-and-graphviz/">Document database using SchemaSpy and Graphviz</a> appeared first on <a rel="nofollow" href="/">So many manuals, so little time</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p><strong>SchemaSpy </strong>is a Java-based tool (requires Java 5 or higher) that analyzes the metadata of a schema in a database and generates a visual representation of it in a browser-displayable format. It lets you click through the hierarchy of database tables via child and parent table relationships as represented by both HTML links and entity-relationship diagrams. See <a href="http://schemaspy.sourceforge.net/">here</a> for more information.<br />
+<strong>Graphviz </strong>is open source graph visualization software. Graph visualization is a way of representing structural information as diagrams of abstract graphs and networks. See <a href="http://www.graphviz.org/">here</a> for more information.<br />
+<strong>jTDS </strong>is an open source JDBC driver for Microsoft SQL Server and Sybase databases. See <a href="http://jtds.sourceforge.net/">here</a> for more information</p>
+<p>We will use SchemaSpy, Graphviz and JTDS to document a SQL server database.</p>
+<p><strong>Step 1:</strong> Download Graphviz from the <a href="http://www.graphviz.org/Download.php">following</a> location<br />
+<strong>Step 2:</strong> Open command prompt in Administrator mode. Change to the directory where the Graphviz msi file has been downloaded and run the</p>
+<pre class="brush: csharp; title: ; notranslate">msiexec /a graphviz-2.38.msi</pre>
+<p>command. As of 8/4/2016, the latest version of Graphviz is 2.38. Run through the various steps of the Graphviz installer.<br />
+<strong>Step 3:</strong> Add the Graphviz bin folder path to the &#8220;Path&#8221; &#8220;system variables&#8221; in &#8220;Environment variables&#8221;. The path of the bin folder on my machine was &#8220;C:\Program Files (x86)\Graphviz2.38\bin&#8221;.<br />
+<img class="aligncenter wp-image-1197 size-large" src="/wp-content/uploads/2016/08/2016-08-04_22-16-49-1024x517.jpg" alt="2016-08-04_22-16-49" width="665" height="336" srcset="/wp-content/uploads/2016/08/2016-08-04_22-16-49-1024x517.jpg 1024w, /wp-content/uploads/2016/08/2016-08-04_22-16-49-300x152.jpg 300w, /wp-content/uploads/2016/08/2016-08-04_22-16-49-768x388.jpg 768w, /wp-content/uploads/2016/08/2016-08-04_22-16-49.jpg 1140w" sizes="(max-width: 665px) 100vw, 665px" /></p>
+<p><img class="aligncenter wp-image-1198 size-large" src="/wp-content/uploads/2016/08/2016-08-04_22-21-50-1024x523.jpg" alt="2016-08-04_22-21-50" width="665" height="340" srcset="/wp-content/uploads/2016/08/2016-08-04_22-21-50-1024x523.jpg 1024w, /wp-content/uploads/2016/08/2016-08-04_22-21-50-300x153.jpg 300w, /wp-content/uploads/2016/08/2016-08-04_22-21-50-768x392.jpg 768w, /wp-content/uploads/2016/08/2016-08-04_22-21-50.jpg 1143w" sizes="(max-width: 665px) 100vw, 665px" /><br />
+<strong>Step 4:</strong> Download Schema Spy from the <a href="https://sourceforge.net/projects/schemaspy/files/schemaspy/">following </a>location. As of 8/4/2016, the latest version is 5.0.0.<br />
+<strong>Step 5:</strong> Download and unzip the latest JTDS drivers for SQL server from the <a href="https://sourceforge.net/projects/jtds/files/">following </a>location. As of 8/4/2016, the latest version is 1.3.1.<br />
+<strong>Step 6:</strong> For the database being documented, make sure that TCP\IP protocol is enabled and the TCP\IP port points to the port name in step no 7 below(i.e 1433 in this case). This can be configured using &#8220;SQL server configuration manager&#8221; for SQL server database. </p>
+<p><img class="aligncenter wp-image-1214 size-full" src="/wp-content/uploads/2016/08/2016-08-05_0-13-07.jpg" alt="2016-08-05_0-13-07" width="968" height="547" srcset="/wp-content/uploads/2016/08/2016-08-05_0-13-07.jpg 968w, /wp-content/uploads/2016/08/2016-08-05_0-13-07-300x170.jpg 300w, /wp-content/uploads/2016/08/2016-08-05_0-13-07-768x434.jpg 768w" sizes="(max-width: 968px) 100vw, 968px" /></p>
+<p><strong>Step 7:</strong> Restart database server using the services snapin.</p>
+<p><strong>Step 8:</strong> Run the following command to generate the documentation for the database.</p>
+<pre class="brush: csharp; title: ; notranslate">
+java -jar schemaSpy_5.0.0.jar -t mssql05-jtds -db SqlTuning -host localhost 
+-port 1433 -u sa1 -p sa1 -o SqlTuningDocumentation 
+-dp C:\Downloads\jtds-1.3.1-dist\jtds-1.3.1.jar -s dbo -loglevel fine
+</pre>
+<p>The post <a rel="nofollow" href="/document-database-using-schemaspy-and-graphviz/">Document database using SchemaSpy and Graphviz</a> appeared first on <a rel="nofollow" href="/">So many manuals, so little time</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>/document-database-using-schemaspy-and-graphviz/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>FizzBuzz using C# yield</title>
+		<link>/fizzbuzz-using-c-yield/</link>
+		<comments>/fizzbuzz-using-c-yield/#respond</comments>
+		<pubDate>Tue, 12 Jul 2016 07:03:39 +0000</pubDate>
+		<dc:creator><![CDATA[ajitgoel]]></dc:creator>
+				<category><![CDATA[Post]]></category>
+		<category><![CDATA[.Net]]></category>
+		<category><![CDATA[C#]]></category>
+		<category><![CDATA[Interview Questions]]></category>
+
+		<guid isPermaLink="false">/?p=1170</guid>
+		<description><![CDATA[<p>Yield. Yield has two great uses, a. It helps to provide custom iteration without creating temp collections. b. It helps to do state-full iteration.</p>
+<p>The post <a rel="nofollow" href="/fizzbuzz-using-c-yield/">FizzBuzz using C# yield</a> appeared first on <a rel="nofollow" href="/">So many manuals, so little time</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p><strong>Yield</strong>.<br />
+Yield has two great uses,<br />
+a. It helps to provide custom iteration without creating temp collections.<br />
+b. It helps to do state-full iteration. </p>
+<pre class="brush: csharp; title: ; notranslate">
+[TestClass]
+public class FizzBuzzTest
+{
+    [TestMethod]
+    public void Test1()
+    {
+        var iEnumerableString = new FizzBuzz().GenerateFizzBuzzUpto(100);
+        var list = iEnumerableString.ToList();
+        Assert.IsTrue(list[0] == &quot;Fizz:3&quot;);
+        Assert.IsTrue(list[1] == &quot;Buzz:5&quot;);
+        Assert.IsTrue(list[6] == &quot;FizzBuzz:15&quot;);
+    }
+}
+public class FizzBuzz
+{
+    public IEnumerable&lt;string&gt; GenerateFizzBuzzUpto(int numberUpto)
+    {
+        for (var counter = 1; counter &lt; numberUpto; counter++)
+        {
+            if (counter%3 == 0 &amp;&amp; counter%5 == 0)
+            {
+                yield return $&quot;FizzBuzz:{counter}&quot;;
+            }
+            if (counter % 3 == 0)
+            {
+                yield return $&quot;Fizz:{counter}&quot;;
+            }
+            if (counter % 5 == 0)
+            {
+                yield return $&quot;Buzz:{counter}&quot;;
+            }
+        }
+    }
+}
+</pre>
+<p>The post <a rel="nofollow" href="/fizzbuzz-using-c-yield/">FizzBuzz using C# yield</a> appeared first on <a rel="nofollow" href="/">So many manuals, so little time</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>/fizzbuzz-using-c-yield/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+	</channel>
+</rss>
+
+<!-- Performance optimized by W3 Total Cache. Learn more: https://www.w3-edge.com/products/
+
+ Served from: www.ajitgoel.net @ 2017-09-27 03:23:30 by W3 Total Cache -->

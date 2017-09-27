@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>T-SQL &#8211; So many manuals, so little time</title>
+	<atom:link href="/tag/t-sql/feed/" rel="self" type="application/rss+xml" />
+	<link>/</link>
+	<description>So many manuals, so little time</description>
+	<lastBuildDate>Sun, 03 Sep 2017 21:30:50 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=4.8.2</generator>
+	<item>
+		<title>Improve performance of T-sql statements containing encrypted columns.</title>
+		<link>/improve-performance-of-t-sql-statements-containing-encrypted-columns-2/</link>
+		<comments>/improve-performance-of-t-sql-statements-containing-encrypted-columns-2/#respond</comments>
+		<pubDate>Wed, 08 Mar 2017 15:32:25 +0000</pubDate>
+		<dc:creator><![CDATA[ajitgoel]]></dc:creator>
+				<category><![CDATA[Post]]></category>
+		<category><![CDATA[Performance Optimization]]></category>
+		<category><![CDATA[SQL server]]></category>
+		<category><![CDATA[T-SQL]]></category>
+
+		<guid isPermaLink="false">/?p=1279</guid>
+		<description><![CDATA[<p>We can use database level encryption to encrypt sensitive information. A commonly used level of encryption is to only encrypt columns that contain sensitive information like credit card numbers, date of birth etc. Encrypting and decrypting database level information is very CPU resource intensive. If a column is used as a primary key or used [&#8230;]</p>
+<p>The post <a rel="nofollow" href="/improve-performance-of-t-sql-statements-containing-encrypted-columns-2/">Improve performance of T-sql statements containing encrypted columns.</a> appeared first on <a rel="nofollow" href="/">So many manuals, so little time</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>We can use database level encryption to encrypt sensitive information. A commonly used level of encryption is to only encrypt columns that contain sensitive information like credit card numbers, date of birth etc. Encrypting and decrypting database level information is very CPU  resource intensive. If a column is used as a primary key or used in comparison clauses (WHERE clauses, JOIN conditions) the database will have to decrypt the whole column to perform operations involving those columns.</p>
+<p>We faced a similar performance issue in one of the previous companies. Database selects based on SSN were very slow as the database had to decrypt the whole column to perform comparison. If you look at the information below(under <strong>Current Problem</strong>) the database performed 4413 logical reads, 4406 read-ahead reads and took 302 milli seconds to perform the operation. </p>
+<p>To improve the performance of these kinds of queries, we decided to store the last four digits of the SSN in clear text and index the column as a non-clustered index. First filtering the rows based on last four digits of the SSN and then filtering the rows based on SSN lead to a dramatic improvement in performance. f you look at the information below(under <strong>Improved Solution</strong>) the database performed 27 logical reads, 10 physical reads 10, 8 read-ahead reads and took 71 milli seconds to perform the operation.<br />
+All in all a huge performance improvement. </p>
+<p><strong>Current Problem:</strong></p>
+<pre class="brush: csharp; title: ; notranslate">
+begin
+DBCC FREEPROCCACHE;
+DBCC DROPCLEANBUFFERS;
+SET STATISTICS TIME ON;
+SET STATISTICS IO ON;
+
+declare @ssn varchar(max) = '123123123'
+with PersonalIdentifierInformationCTE as
+(
+select CONVERT (CHAR(32), DECRYPTBYKEYAUTOCERT(CERT_ID('CertificateName'), NULL, Identifier)) as Identifier
+from PersonalIdentifierInformation
+)
+select *
+from PersonalIdentifierInformationCTE where Identifier is not null
+and Identifier=@ssn
+end
+</pre>
+<pre class="brush: csharp; highlight: [6,7,8,11]; title: ; notranslate">
+DBCC execution completed. If DBCC printed error messages, contact your system administrator.
+DBCC execution completed. If DBCC printed error messages, contact your system administrator.
+SQL Server Execution Times:
+CPU time = 0 ms, elapsed time = 0 ms.
+(8 row(s) affected)
+Table 'PersonalIdentifierInformation'. Scan count 1, logical reads 4413, 
+physical reads 3, read-ahead reads 4406, lob logical reads 0, 
+lob physical reads 0, lob read-ahead reads 0.
+(1 row(s) affected)
+SQL Server Execution Times:
+CPU time = 250 ms, elapsed time = 302 ms.
+SQL Server parse and compile time:
+CPU time = 0 ms, elapsed time = 0 ms.
+SQL Server Execution Times:
+CPU time = 0 ms, elapsed time = 0 ms.
+</pre>
+<p><img src="/wp-content/uploads/2017/03/030817_1532_Improveperf1.png" alt="" /></p>
+<p><img src="/wp-content/uploads/2017/03/030817_1532_Improveperf2.png" alt="" /></p>
+<p><strong>Improved Solution:</strong></p>
+<pre class="brush: csharp; highlight: [16,17]; title: ; notranslate">
+begin
+declare @ssn varchar(max) = '123123123'
+
+DBCC FREEPROCCACHE;
+DBCC DROPCLEANBUFFERS;
+SET STATISTICS TIME ON;
+SET STATISTICS IO ON;
+
+with PersonalIdentifierInformationCTE as 
+(
+select CONVERT (CHAR(32), DECRYPTBYKEYAUTOCERT(CERT_ID('CertificateName'), NULL, Identifier)) as Identifier, SSNLast4
+from PersonalIdentifierInformation
+)
+select *
+from PersonalIdentifierInformationCTE 
+where SSNLast4&lt;&gt; 0 and SSNLast4 = substring(@ssn, LEN(@ssn)-4+1, LEN(@ssn)) 
+and Identifier is not null
+and  Identifier=@ssn
+end
+</pre>
+<pre class="brush: csharp; highlight: [20,21,22,25]; title: ; notranslate">
+SQL Server parse and compile time: 
+   CPU time = 0 ms, elapsed time = 0 ms.
+ SQL Server Execution Times:
+   CPU time = 0 ms,  elapsed time = 0 ms.
+SQL Server parse and compile time: 
+   CPU time = 0 ms, elapsed time = 13 ms.
+ SQL Server Execution Times:
+   CPU time = 0 ms,  elapsed time = 0 ms.
+DBCC execution completed. If DBCC printed error messages, contact your system administrator.
+ SQL Server Execution Times:
+   CPU time = 0 ms,  elapsed time = 2 ms.
+DBCC execution completed. If DBCC printed error messages, contact your system administrator.
+ SQL Server Execution Times:
+   CPU time = 16 ms,  elapsed time = 16 ms.
+ SQL Server Execution Times:
+   CPU time = 0 ms,  elapsed time = 0 ms.
+ SQL Server Execution Times:
+   CPU time = 0 ms,  elapsed time = 0 ms.
+    (8 row(s) affected)
+Table 'PersonalIdentifierInformation'. Scan count 1, logical reads 27, 
+physical reads 10, read-ahead reads 8, lob logical reads 0, 
+lob physical reads 0, lob read-ahead reads 0.
+    (1 row(s) affected)
+ SQL Server Execution Times:
+   CPU time = 0 ms,  elapsed time = 71 ms.
+SQL Server parse and compile time: 
+   CPU time = 0 ms, elapsed time = 0 ms.
+ SQL Server Execution Times:
+   CPU time = 0 ms,  elapsed time = 0 ms.
+</pre>
+<p><img src="/wp-content/uploads/2017/03/030817_1532_Improveperf3.png" alt="" /></p>
+<p><img src="/wp-content/uploads/2017/03/030817_1532_Improveperf4.png" alt="" /></p>
+<p>The post <a rel="nofollow" href="/improve-performance-of-t-sql-statements-containing-encrypted-columns-2/">Improve performance of T-sql statements containing encrypted columns.</a> appeared first on <a rel="nofollow" href="/">So many manuals, so little time</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>/improve-performance-of-t-sql-statements-containing-encrypted-columns-2/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>T-SQL Recipes Primer</title>
+		<link>/t-sql-recipes-primer/</link>
+		<comments>/t-sql-recipes-primer/#respond</comments>
+		<pubDate>Sun, 26 Jun 2016 20:07:59 +0000</pubDate>
+		<dc:creator><![CDATA[ajitgoel]]></dc:creator>
+				<category><![CDATA[Post]]></category>
+		<category><![CDATA[SQL server]]></category>
+		<category><![CDATA[T-SQL]]></category>
+
+		<guid isPermaLink="false">/?p=870</guid>
+		<description><![CDATA[<p>Forcing sort order not directly supported by the data Eg: Retrieve only colored products and show red products first before other products. Solution: The solution converts the value ‘Red’ into a single space, which sorts before all the color names. The CASE expression specifies LOWER(Color) to ensure ‘Red’, ‘RED’, ‘red’, and so forth are all [&#8230;]</p>
+<p>The post <a rel="nofollow" href="/t-sql-recipes-primer/">T-SQL Recipes Primer</a> appeared first on <a rel="nofollow" href="/">So many manuals, so little time</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p><strong>Forcing sort order not directly supported by the data</strong> Eg: Retrieve only colored products and show red products first before other products.<br />
+<strong>Solution: </strong>The solution converts the value ‘Red’ into a single space, which sorts before all the color names. The CASE expression specifies LOWER(Color) to ensure ‘Red’, ‘RED’, ‘red’, and so forth are all treated the same. Other color values are forced to lowercase to prevent any case-sensitivity problems in the sort.</p>
+<pre class="brush: sql; highlight: [3,4,5,6]; title: ; notranslate">
+SELECT ProductID, Name, Color FROM Products
+WHERE Color IS NOT NULL
+ORDER BY CASE LOWER(Color)
+WHEN 'red' THEN ' '
+ELSE LOWER(Color)
+END;
+</pre>
+<p><strong>Present a result set to an application user N rows at a time.</strong> Eg: Skip the first ten rows and fetch the next five rows.<br />
+<strong>Solution: </strong>Make use of the query paging feature in SQL Server 2012. Use OFFSET to specify how many rows to skip from the beginning of the possible result set and FETCH to set the number of rows to return. You must specify an ORDER BY clause.</p>
+<pre class="brush: sql; highlight: [2,3]; title: ; notranslate">
+SELECT ProductID, Name FROM Product
+ORDER BY Name
+OFFSET 10 ROWS FETCH NEXT 5 ROWS ONLY;
+</pre>
+<p><strong>Query to find Nth highest salary without using SubQuery</strong> Eg: write a query to get the 5th highest salary.<br />
+<strong>Solution: </strong>Make use of the Common table expression to get the salaries along with a row number. Then select from the common table express to get the 5th highest salary.</p>
+<pre class="brush: sql; highlight: [1,3]; title: ; notranslate">
+WITH Salaries AS(SELECT Salary, ROW_NUMBER() OVER(ORDER BY Salary DESC) AS 'RowNum' FROM Employee)
+SELECT  Salary fROM  Salaries 
+WHERE RowNum = 5
+</pre>
+<p><strong>Differences between common table expression and temporary tables(or table variable):</strong><br />
+A common table expression creates the table being used in memory, but is only valid for the specific query following it. Common table expression will need to be recreated every time it is needed.<br />
+A Temporary tables(or table variable) is also in-memory only, but can be used multiple times without needing to be recreated every time. Also, if you need to persist a few records now, add a few more records after the next select, add a few more records after another op, then return just those handful of records, then this is a handy in-memory structure.</p>
+<p>The post <a rel="nofollow" href="/t-sql-recipes-primer/">T-SQL Recipes Primer</a> appeared first on <a rel="nofollow" href="/">So many manuals, so little time</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>/t-sql-recipes-primer/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Tips to increase database performance</title>
+		<link>/tips-to-increase-database-performance/</link>
+		<comments>/tips-to-increase-database-performance/#respond</comments>
+		<pubDate>Sun, 17 Apr 2016 16:58:03 +0000</pubDate>
+		<dc:creator><![CDATA[ajitgoel]]></dc:creator>
+				<category><![CDATA[Post]]></category>
+		<category><![CDATA[Performance Optimization]]></category>
+		<category><![CDATA[SQL server]]></category>
+		<category><![CDATA[T-SQL]]></category>
+
+		<guid isPermaLink="false">http://blog-goel.rhcloud.com/?p=645</guid>
+		<description><![CDATA[<p>Here are some of the points that you should consider when you write queries: Limit number of rows and columns Use &#8220;Search argument able&#8221; conditions in &#8220;where&#8221; clause. They help query optimizers to use the index defined on column(s) effectively and have a higher chance of meeting index seek than index or table scan. &#8220;Search [&#8230;]</p>
+<p>The post <a rel="nofollow" href="/tips-to-increase-database-performance/">Tips to increase database performance</a> appeared first on <a rel="nofollow" href="/">So many manuals, so little time</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>Here are some of the points that you should consider when you write queries:</p>
+<li>Limit number of rows and columns</li>
+<li>Use &#8220;Search argument able&#8221; conditions in &#8220;where&#8221; clause. They help query optimizers to use the index defined on column(s) effectively and have a higher chance of meeting index seek than index or table scan.<br />
+&#8220;Search argument able&#8221; operators are :<br />
+=, >, >=, <, <=, BETWEEN, LIKE (only those LIKE conditions that have a wildcard character as a suffix, eg: FirstName LIKE 'A%'
+</li>
+<li>Do not use arithmetic operators directly on the &#8220;column name&#8221; in the &#8220;where&#8221; clause. Instead use logical workarounds to get performance benefits. eg:<br />
+instead of </p>
+<pre class="brush: sql; title: ; notranslate">WHERE HourlyRate * 8 &lt;= 100</pre>
+<p>use </p>
+<pre class="brush: sql; title: ; notranslate">WHERE HourlyRate &lt;= 100/8</pre>
+</li>
+<li>Do not use functions on columns in the &#8220;where&#8221; clause. eg:<br />
+a. Instead of </p>
+<pre class="brush: sql; title: ; notranslate">WHERE DATEPART(YYYY,CreateDate)='2016'</pre>
+<p>use </p>
+<pre class="brush: sql; title: ; notranslate">WHERE CreateDate &gt;= '01/01/2016' AND CreateDate &lt;= '12/31/2016'</pre>
+</li>
+<p>b. Instead of </p>
+<pre class="brush: sql; title: ; notranslate">WHERE Left(LastName,1)='A'</pre>
+<p>use </p>
+<pre class="brush: sql; title: ; notranslate">WHERE LastName LIKE 'A%'</pre>
+</li>
+<li>Use proper primary and Foreign Key constraints. They help the query optimizer select the best-suited execution plan for the query. </li>
+<p>Here are some of the points that you should consider when designing indexes. </p>
+<li>Try to use maximum 4-5 indexes on one table, not more. If you have read-only table, then the number of indexes may be increased.</li>
+<li>Keep your indexes as narrow as possible. This reduces the size of the index and reduces the number of reads required to read the index.</li>
+<li>Try to create indexes on columns that have integer values rather than character values.</li>
+<li>If you create a composite (multi-column) index, the order of the columns in the key are very important. Try to order the columns in the key as to enhance selectivity, with the most selective columns to the leftmost of the key.
+</li>
+<p>The post <a rel="nofollow" href="/tips-to-increase-database-performance/">Tips to increase database performance</a> appeared first on <a rel="nofollow" href="/">So many manuals, so little time</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>/tips-to-increase-database-performance/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+	</channel>
+</rss>
+
+<!-- Performance optimized by W3 Total Cache. Learn more: https://www.w3-edge.com/products/
+
+ Served from: www.ajitgoel.net @ 2017-09-27 03:24:43 by W3 Total Cache -->

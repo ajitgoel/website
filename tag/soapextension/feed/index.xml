@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>SoapExtension &#8211; So many manuals, so little time</title>
+	<atom:link href="/tag/soapextension/feed/" rel="self" type="application/rss+xml" />
+	<link>/</link>
+	<description>So many manuals, so little time</description>
+	<lastBuildDate>Sun, 03 Sep 2017 21:30:50 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=4.8.2</generator>
+	<item>
+		<title>Log exceptions in classic(asmx) web services using Soap Extension</title>
+		<link>/logging-exceptions-in-classicasmx-web-services-using-soapextension/</link>
+		<comments>/logging-exceptions-in-classicasmx-web-services-using-soapextension/#respond</comments>
+		<pubDate>Fri, 18 Mar 2016 18:52:39 +0000</pubDate>
+		<dc:creator><![CDATA[ajitgoel]]></dc:creator>
+				<category><![CDATA[Post]]></category>
+		<category><![CDATA[.Net]]></category>
+		<category><![CDATA[C#]]></category>
+		<category><![CDATA[Elmah]]></category>
+		<category><![CDATA[SoapExtension]]></category>
+
+		<guid isPermaLink="false">http://blog-goel.rhcloud.com/?p=499</guid>
+		<description><![CDATA[<p>Problem: Log exceptions in classic(asmx) webservices without adding try-catch blocks throughout all the webservice. Solution: Exceptions can be easily logged in classic(asmx) webservices by using a Soap Extension. a. Create the soap extension. Override the call to ChainStream method where we get a new copy of the stream. Use the ProcessMessage switch to examine the [&#8230;]</p>
+<p>The post <a rel="nofollow" href="/logging-exceptions-in-classicasmx-web-services-using-soapextension/">Log exceptions in classic(asmx) web services using Soap Extension</a> appeared first on <a rel="nofollow" href="/">So many manuals, so little time</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p><strong>Problem: </strong><br />
+Log exceptions in classic(asmx) webservices without adding try-catch blocks throughout all the webservice. </p>
+<p><strong>Solution: </strong><br />
+Exceptions can be easily logged in classic(asmx) webservices by using a Soap Extension.<br />
+a. Create the soap extension. Override the call to <strong>ChainStream</strong> method where we get a new copy of the stream. Use the <strong>ProcessMessage</strong> switch to examine the Soap Envelope and log an exception using a logging framework of our choice(I have used Elmah logging framework here).<br />
+b. Register the SoapExtension in the client application&#8217;s web configuration. The &#8220;type&#8221; property follows the format of<br />
+NameSpaceName.ClassName, SoapExtension&#8217;sAssemblyName. </p>
+<pre class="brush: csharp; highlight: [9,32,33,34,35,36,37]; title: ; notranslate">
+namespace SoapExtensions
+{
+    using System;
+    using System.IO;
+    using System.Web.Services.Protocols;
+
+    using Elmah;
+
+    public class ElmahSoapExtension : SoapExtension
+    {
+        private Stream oldStream;
+        private Stream newStream;
+
+        public string Request { get; private set; }
+        public string Response { get; private set; }
+
+        public override Stream ChainStream(Stream stream)
+        {
+            oldStream = stream;
+            newStream = new MemoryStream();
+            return newStream;
+        }
+
+        public override void ProcessMessage(SoapMessage soapMessage)
+        {
+            switch (soapMessage.Stage)
+            {
+                case SoapMessageStage.BeforeSerialize:
+                    break;
+                case SoapMessageStage.AfterSerialize:
+                    Response = GetSoapEnvelope(newStream);
+                    if (soapMessage.Exception != null)
+                    {
+                        var exception = soapMessage.Exception.GetBaseException();
+                        exception.Data.Add(&quot;WebService Response&quot;, Response);
+                        ErrorSignal.FromCurrentContext().Raise(exception);
+                    }
+                    CopyStream(newStream, oldStream);
+                    break;
+                case SoapMessageStage.BeforeDeserialize:
+                    CopyStream(oldStream, newStream);
+                    Request = GetSoapEnvelope(newStream);
+                    break;
+                case SoapMessageStage.AfterDeserialize:
+                    break;
+            }
+        }
+
+        private static string GetSoapEnvelope(Stream stream)
+        {
+            stream.Position = 0;
+            var streamReader = new StreamReader(stream);
+            var text = streamReader.ReadToEnd();
+            stream.Position = 0;
+            return text;
+        }
+
+        private static void CopyStream(Stream streamFrom, Stream streamTo)
+        {
+            var textReader = new StreamReader(streamFrom);
+            var textWriter = new StreamWriter(streamTo);
+            textWriter.WriteLine(textReader.ReadToEnd());
+            textWriter.Flush();
+        }
+        public override object GetInitializer(LogicalMethodInfo methodInfo, SoapExtensionAttribute attribute)
+        {
+            return null;
+        }
+        public override object GetInitializer(Type WebServiceType)
+        {
+            return null;
+        }
+        public override void Initialize(object initializer)
+        {
+        }
+    }
+}
+</pre>
+<pre class="brush: xml; highlight: [7]; title: ; notranslate">
+&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;configuration&gt;
+	&lt;system.web&gt;
+		&lt;webServices&gt;
+      &lt;soapExtensionTypes&gt;
+        &lt;add 
+        type=&quot;SoapExtensions.ElmahSoapExtension, SoapExtensions&quot; 
+        priority=&quot;1&quot; group=&quot;1&quot; /&gt;
+      &lt;/soapExtensionTypes&gt;      
+		&lt;/webServices&gt;
+	&lt;/system.web&gt;
+&lt;/configuration&gt;
+</pre>
+<p>The post <a rel="nofollow" href="/logging-exceptions-in-classicasmx-web-services-using-soapextension/">Log exceptions in classic(asmx) web services using Soap Extension</a> appeared first on <a rel="nofollow" href="/">So many manuals, so little time</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>/logging-exceptions-in-classicasmx-web-services-using-soapextension/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+	</channel>
+</rss>
+
+<!-- Performance optimized by W3 Total Cache. Learn more: https://www.w3-edge.com/products/
+
+ Served from: www.ajitgoel.net @ 2017-09-27 03:24:36 by W3 Total Cache -->

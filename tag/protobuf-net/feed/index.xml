@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>ProtoBuf.Net &#8211; So many manuals, so little time</title>
+	<atom:link href="/tag/protobuf-net/feed/" rel="self" type="application/rss+xml" />
+	<link>/</link>
+	<description>So many manuals, so little time</description>
+	<lastBuildDate>Sun, 03 Sep 2017 21:30:50 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=4.8.2</generator>
+	<item>
+		<title>Use ProtoBuf.Net to improve serialization performance</title>
+		<link>/use-protobuf-net-to-improve-serialization-performance/</link>
+		<comments>/use-protobuf-net-to-improve-serialization-performance/#respond</comments>
+		<pubDate>Sun, 10 Jul 2016 00:53:36 +0000</pubDate>
+		<dc:creator><![CDATA[ajitgoel]]></dc:creator>
+				<category><![CDATA[Post]]></category>
+		<category><![CDATA[.Net]]></category>
+		<category><![CDATA[C#]]></category>
+		<category><![CDATA[Performance Optimization]]></category>
+		<category><![CDATA[ProtoBuf.Net]]></category>
+
+		<guid isPermaLink="false">/?p=1010</guid>
+		<description><![CDATA[<p>Our application relied on data that did not change often. It had therefore implemented a solution that cached this data as xml files. These files were written to the web server on the first request and subsequently read whenever they were needed. Some of the problems that arose due to this was: a. Since the application was load [&#8230;]</p>
+<p>The post <a rel="nofollow" href="/use-protobuf-net-to-improve-serialization-performance/">Use ProtoBuf.Net to improve serialization performance</a> appeared first on <a rel="nofollow" href="/">So many manuals, so little time</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>Our application relied on data that did not change often. It had therefore implemented a solution that cached this data as xml files. These files were written to the web server on the first request and subsequently read whenever they were needed.<br />
+Some of the problems that arose due to this was:<br />
+a. Since the application was load balanced, a web server servicing a web request was not guaranteed to serve the next web request. This lead to the data in the various web servers quickly getting out of sync.<br />
+b. Our application was very slow. Profiling the application showed that showed that reading and writing(i.e serialization and de-serialization) the XML cache files was one of the biggest bottleneck in the application.<br />
+XML serialization is one of the slowest serializationde-serialization formats in the .Net framework. See the excellent <a href="http://maxondev.com/serialization-performance-comparison-c-net-formats-frameworks-xmldatacontractserializer-xmlserializer-binaryformatter-json-newtonsoft-servicestack-text/">article</a> where Maxim Novak compares the various types of serialization in the .Net framework.</p>
+<p>We therefore decided to change the serialization format from XML to <a href="https://github.com/mgravell/protobuf-net">ProtoBuf.Net</a>. Protobuf-net is a contract based serializer for .NET code, that writes data in the &#8220;protocol buffers&#8221; serialization format engineered by Google. This framework component is written by Marc Gravell, considered as a .Net guru.<br />
+We also decided to change the application to write the cache files to a single file server and create the cache files in a background thread. I will write a separate article for the same in the future.<br />
+Changing the application to ProtoBuf.Net protocol was pretty straightforward.<br />
+a. Use Nuget to install ProtoBuf.Net framework component.</p>
+<pre class="brush: csharp; title: ; notranslate">
+Install-Package protobuf-net
+</pre>
+<p>b. Add [ProtoContract] attribute to each class that needs to be serialized and [ProtoMember] Attribute with a unique integer to identify each member that needs to be serialized.</p>
+<pre class="brush: csharp; highlight: [2,5,7]; title: ; notranslate">
+using ProtoBuf;
+[ProtoContract]
+class Person 
+{
+    [ProtoMember(1)]
+    public int Id {get;set;}
+    [ProtoMember(2)]
+    public string Name {get;set:}
+}
+</pre>
+<p>c. Serialize and deserialize your data</p>
+<pre class="brush: csharp; highlight: [3]; title: ; notranslate">
+using (var file = File.Create(&quot;person.bin&quot;)) 
+{
+    Serializer.Serialize(file, person);
+}
+</pre>
+<pre class="brush: csharp; highlight: [4]; title: ; notranslate">
+Person person;
+using (var file = File.OpenRead(&quot;person.bin&quot;)) 
+{
+    person = Serializer.Deserialize&lt;Person&gt;(file);
+}
+</pre>
+<p>As you can see from the charts below, the change from<br />
+a. XML to ProtoBuf.Net serialization<br />
+b. caching the files in a single file server instead of multiple file servers<br />
+c. offloading the work of generating the cache files to a background thread<br />
+was a huge success.</p>
+<p><img class="aligncenter wp-image-992 size-full" src="/wp-content/uploads/2016/07/ProtoBuf.NetPerformanceImprovement-Part1.png" alt="ProtoBuf.NetPerformanceImprovement-Part1" width="929" height="569" srcset="/wp-content/uploads/2016/07/ProtoBuf.NetPerformanceImprovement-Part1.png 929w, /wp-content/uploads/2016/07/ProtoBuf.NetPerformanceImprovement-Part1-300x184.png 300w, /wp-content/uploads/2016/07/ProtoBuf.NetPerformanceImprovement-Part1-768x470.png 768w" sizes="(max-width: 929px) 100vw, 929px" /></p>
+<p>&nbsp;</p>
+<p><img class="aligncenter wp-image-993 size-full" src="/wp-content/uploads/2016/07/ProtoBuf.NetPerformanceImprovement-Part2.png" alt="ProtoBuf.NetPerformanceImprovement-Part2" width="928" height="568" srcset="/wp-content/uploads/2016/07/ProtoBuf.NetPerformanceImprovement-Part2.png 928w, /wp-content/uploads/2016/07/ProtoBuf.NetPerformanceImprovement-Part2-300x184.png 300w, /wp-content/uploads/2016/07/ProtoBuf.NetPerformanceImprovement-Part2-768x470.png 768w" sizes="(max-width: 928px) 100vw, 928px" /></p>
+<p><strong>Using ProtoBuf.Net Serialization:</strong> The .Net profiler shows &#8220;HotSpots&#8221; due to serialization and de-serialization are much reduced. File sizes are also much reduced.</p>
+<p><img class="aligncenter wp-image-1016" src="/wp-content/uploads/2016/07/ProtoBufNetSerialization1-300x218.jpg" alt="ProtoBufNetSerialization1" width="384" height="279" /></p>
+<p><img class="aligncenter wp-image-1017" src="/wp-content/uploads/2016/07/ProtoBufNetSerialization2.jpg" alt="ProtoBufNetSerialization2" width="312" height="123" /></p>
+<p><strong>Using XML Serialization:</strong> The .Net profiler shows high CPU usage i.e &#8220;HotSpots&#8221; due to XML serialization and de-serialization. File sizes are also much larger.</p>
+<p><img class="aligncenter wp-image-1017" src="/wp-content/uploads/2016/07/XMLSerialization1-300x217.jpg" alt="XMLSerialization1" width="300" height="217" /></p>
+<p><img class="wp-image-1017 aligncenter" src="/wp-content/uploads/2016/07/XMLSerialization2.jpg" alt="XMLSerialization2" width="278" height="103" /></p>
+<p>The post <a rel="nofollow" href="/use-protobuf-net-to-improve-serialization-performance/">Use ProtoBuf.Net to improve serialization performance</a> appeared first on <a rel="nofollow" href="/">So many manuals, so little time</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>/use-protobuf-net-to-improve-serialization-performance/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+	</channel>
+</rss>
+
+<!-- Performance optimized by W3 Total Cache. Learn more: https://www.w3-edge.com/products/
+
+ Served from: www.ajitgoel.net @ 2017-09-27 03:24:33 by W3 Total Cache -->

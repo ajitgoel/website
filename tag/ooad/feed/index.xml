@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>OOAD &#8211; So many manuals, so little time</title>
+	<atom:link href="/tag/ooad/feed/" rel="self" type="application/rss+xml" />
+	<link>/</link>
+	<description>So many manuals, so little time</description>
+	<lastBuildDate>Sun, 03 Sep 2017 21:30:50 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=4.8.2</generator>
+	<item>
+		<title>Encapsulate and vary algorithm from the client that uses it(Strategy Pattern)</title>
+		<link>/encapsulate-vary-algorithm-client-uses-itstrategy-pattern/</link>
+		<comments>/encapsulate-vary-algorithm-client-uses-itstrategy-pattern/#respond</comments>
+		<pubDate>Sun, 10 Jul 2016 05:35:39 +0000</pubDate>
+		<dc:creator><![CDATA[ajitgoel]]></dc:creator>
+				<category><![CDATA[Post]]></category>
+		<category><![CDATA[.Net]]></category>
+		<category><![CDATA[C#]]></category>
+		<category><![CDATA[Design Patterns]]></category>
+		<category><![CDATA[OOAD]]></category>
+
+		<guid isPermaLink="false">http://blog-goel.rhcloud.com/?p=604</guid>
+		<description><![CDATA[<p>Strategy pattern is a software design pattern that enables an algorithm&#8217;s behavior to be selected at runtime. It a. defines a family of algorithms, b. encapsulates each algorithm, and c. makes the algorithms interchangeable within that family. Example:</p>
+<p>The post <a rel="nofollow" href="/encapsulate-vary-algorithm-client-uses-itstrategy-pattern/">Encapsulate and vary algorithm from the client that uses it(Strategy Pattern)</a> appeared first on <a rel="nofollow" href="/">So many manuals, so little time</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p><strong>Strategy pattern</strong> is a software design pattern that enables an algorithm&#8217;s behavior to be selected at runtime. It<br />
+a. defines a family of algorithms,<br />
+b. encapsulates each algorithm, and<br />
+c. makes the algorithms interchangeable within that family.</p>
+<p><strong>Example:</strong><br />
+<img class="aligncenter wp-image-1071 size-full" src="/wp-content/uploads/2016/07/StrategyDesignPattern.jpg" alt="Strategy Design Pattern" width="882" height="370" srcset="/wp-content/uploads/2016/07/StrategyDesignPattern.jpg 882w, /wp-content/uploads/2016/07/StrategyDesignPattern-300x126.jpg 300w, /wp-content/uploads/2016/07/StrategyDesignPattern-768x322.jpg 768w" sizes="(max-width: 882px) 100vw, 882px" /></p>
+<pre class="brush: csharp; highlight: [11,12,13,25,26,27,28,31,32,41,42,43,44,45]; title: ; notranslate">
+using System.Collections.Generic;
+
+class StrategyDesignPatternClient
+{
+    static void Main()
+    {
+        var sortedList = new SortedList();
+        sortedList.Add(&quot;name 1&quot;);
+        sortedList.Add(&quot;name 2&quot;);
+        sortedList.Add(&quot;name 3&quot;);
+        //The client passes the &quot;sort strategy&quot; to the SortedList 
+        //so the SortedList can use that passed strategy to sort the internal list
+        sortedList.SetSortStrategy(new QuickSort());
+        sortedList.Sort();
+    }
+}
+public class SortedList
+{
+    private List&amp;amp;lt;string&amp;amp;gt; list = new List&amp;amp;lt;string&amp;amp;gt;();
+    private SortStrategy sortstrategy;
+    public void SetSortStrategy(SortStrategy sortstrategy)
+    {
+        this.sortstrategy = sortstrategy;
+    }
+    public void Add(string name)
+    {
+        list.Add(name);
+    }
+    public void Sort()
+    {
+        //Ask the &quot;SortStrategy&quot; class to sort the list. 
+        sortstrategy.Sort(list);
+    }
+}
+public interface SortStrategy
+{
+    void Sort(List&amp;amp;lt;string&amp;amp;gt; list);
+}
+public class QuickSort : SortStrategy
+{
+    public void Sort(List&amp;amp;lt;string&amp;amp;gt; list)
+    {
+        // Default is Quicksort
+        list.Sort(); 
+    }
+}
+public class ShellSort : SortStrategy
+{
+    public void Sort(List&amp;amp;lt;string&amp;amp;gt; list)
+    {
+        // ShellSort the &quot;list&quot; collection here. 
+    }
+}
+public class MergeSort : SortStrategy
+{
+    public void Sort(List&amp;amp;lt;string&amp;amp;gt; list)
+    {
+        // MergeSort the &quot;list&quot; collection here. 
+    }
+}
+</pre>
+<p>The post <a rel="nofollow" href="/encapsulate-vary-algorithm-client-uses-itstrategy-pattern/">Encapsulate and vary algorithm from the client that uses it(Strategy Pattern)</a> appeared first on <a rel="nofollow" href="/">So many manuals, so little time</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>/encapsulate-vary-algorithm-client-uses-itstrategy-pattern/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>SOLID Principles in Brief</title>
+		<link>/solid-principles-in-brief/</link>
+		<comments>/solid-principles-in-brief/#respond</comments>
+		<pubDate>Mon, 18 Apr 2016 02:12:46 +0000</pubDate>
+		<dc:creator><![CDATA[ajitgoel]]></dc:creator>
+				<category><![CDATA[Post]]></category>
+		<category><![CDATA[OOAD]]></category>
+
+		<guid isPermaLink="false">http://blog-goel.rhcloud.com/?p=668</guid>
+		<description><![CDATA[<p>SOLID is a term describing a collection of design principles for good code. It was invented by Robert C. Martin(Uncle Bob). SOLID means: a. Single Responsibility Principle b. Open/Closed Principle c. Liskov Substitution Principle d. Interface Segregation Principle e. Dependency Inversion Principle a. Single Responsibility Principle Single Responsibility Principle states that every class should have [&#8230;]</p>
+<p>The post <a rel="nofollow" href="/solid-principles-in-brief/">SOLID Principles in Brief</a> appeared first on <a rel="nofollow" href="/">So many manuals, so little time</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p><strong>SOLID </strong>is a term describing a collection of design principles for good code. It was invented by Robert C. Martin(Uncle Bob).</p>
+<p><strong>SOLID </strong>means:<br />
+a. Single Responsibility Principle<br />
+b. Open/Closed Principle<br />
+c. Liskov Substitution Principle<br />
+d. Interface Segregation Principle<br />
+e. Dependency Inversion Principle</p>
+<p><strong>a. Single Responsibility Principle</strong><br />
+Single Responsibility Principle states that every class should have a single responsibility. There should never be more than one reason for a class to change.</p>
+<p><strong>b. Open/Closed Principle</strong><br />
+Open/Closed Principle states that software entities should be open for extension, but closed for modification.</p>
+<p><strong>c. Liskov Substitution Principle</strong><br />
+Liskov Substitution Principle states that code that uses a base class must be able to substitute a subclass without knowing it.</p>
+<p><strong>d. Interface Segregation Principle</strong><br />
+The Interface Segregation Principle states that clients should not be forced to implement interfaces they don&#8217;t use.</p>
+<p><strong>Existing Design</strong><br />
+Let&#8217;s assume we have to implement a new Robot class in this design. Robots will need to implement the IWorker interface because robots works. On the other side, they don&#8217;t have to implement it because they don&#8217;t eat. If we keep the present design, the new Robot class is forced to implement the &#8220;eat&#8221; method.</p>
+<pre class="brush: csharp; title: ; notranslate">
+public interface IWorker 
+{
+	public void Work();
+	public void Eat();
+}
+public class Worker : IWorker
+{
+	public void Work() 
+        {
+	}
+	public void Eat() 
+        {
+	}
+}
+public class Manager 
+{
+	IWorker worker;
+	public void SetWorker(IWorker w) 
+        {
+		worker=w;
+	}
+	public void Manage() 
+        {
+		worker.Work();
+	}
+}
+</pre>
+<p><strong>Interface Segregation Principle implemented in current design</strong><br />
+Following code supports the Interface Segregation Principle. By splitting the IWorker interface in IFeedable, IWorkable interfaces the new Robot class is no longer forced to implement the &#8220;eat&#8221; method.</p>
+<pre class="brush: csharp; title: ; notranslate">
+public interface IWorker : IFeedable, IWorkable 
+{
+}
+public interface IWorkable 
+{
+	public void Work();
+}
+public interface IFeedable
+{
+	public void Eat();
+}
+public class Worker : IWorkable, IFeedable
+{
+	public void Work() 
+        {
+	}
+	public void Eat() 
+        {
+	}
+}
+public class Robot : IWorkable
+{
+	public void Work() 
+        {
+	}
+}
+public class Manager 
+{
+	IWorkable worker;
+	public void SetWorker(IWorkable w) 
+	{
+		worker=w;
+	}
+	public void Manage() 
+	{
+		worker.Work();
+	}
+}
+</pre>
+<p><strong>e. Dependency Inversion Principle</strong><br />
+Dependency Inversion Principle states that<br />
+1. High-level modules(Manager class) should not depend on low-level modules(Worker, SuperWorker classes). Both(Manager, Worker, SuperWorker classes) should depend on abstractions(IWorker).<br />
+2. Abstractions should not depend on details. Details should depend on abstractions.</p>
+<p><strong>Existing Design</strong><br />
+Let&#8217;s assume we have to implement a new SuperWorker class in this design. If we do that then we will have to change the Manager.Work() method also which introduces risk.</p>
+<pre class="brush: csharp; title: ; notranslate">
+public class Worker 
+{
+	public void Work() 
+	{
+	}
+}
+public class SuperWorker: Worker 
+{
+	public void Work() 
+	{
+	}
+}
+public class Manager 
+{
+	Worker worker;
+	public void SetWorker(Worker w) 
+	{
+		worker = w;
+	}
+	public void Manage() 
+	{
+		worker.Work();
+	}
+}
+</pre>
+<p><strong>Dependency Inversion Principle implemented in current design</strong><br />
+Following code supports the Dependency Inversion Principle. In this new design a new IWorker Interface has been added. Now the Manager class doesn&#8217;t require changes when SuperWorkers are added since the work has been delegated to the SuperWorker class.It also reduces risk since no other parts of the system need to be tested.</p>
+<pre class="brush: csharp; title: ; notranslate">
+public interface IWorker 
+{
+	public void Work();
+}
+public class Worker : IWorker
+{
+	public void Work() 
+	{
+	}
+}
+public class SuperWorker : IWorker
+{
+	public void Work() 
+	{
+	}
+}
+public class Manager 
+{
+	IWorker worker;
+	public void SetWorker(IWorker w) 
+	{
+		worker = w;
+	}
+	public void Manage() 
+	{
+		worker.Work();
+	}
+}
+</pre>
+<p><strong>Dependency Injection</strong> is about how one object acquires a dependency.<br />
+<strong>Inversion of Control (IoC)</strong> means that objects do not create other objects on which they rely to do their work. Instead, they get the objects that they need from an outside source (for example, an xml configuration file).<br />
+<strong>Dependency Injection (DI)</strong> means that this is done without the object intervention, usually by a framework component that passes constructor parameters and set properties.</p>
+<p><strong>Dependency Injection Container</strong> is a way to auto-wire classes</p>
+<p>The post <a rel="nofollow" href="/solid-principles-in-brief/">SOLID Principles in Brief</a> appeared first on <a rel="nofollow" href="/">So many manuals, so little time</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>/solid-principles-in-brief/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+	</channel>
+</rss>
+
+<!-- Performance optimized by W3 Total Cache. Learn more: https://www.w3-edge.com/products/
+
+ Served from: www.ajitgoel.net @ 2017-09-27 03:24:30 by W3 Total Cache -->

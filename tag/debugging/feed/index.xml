@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>Debugging &#8211; So many manuals, so little time</title>
+	<atom:link href="/tag/debugging/feed/" rel="self" type="application/rss+xml" />
+	<link>/</link>
+	<description>So many manuals, so little time</description>
+	<lastBuildDate>Sun, 03 Sep 2017 21:30:50 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=4.8.2</generator>
+	<item>
+		<title>Filter network requests when debugging.</title>
+		<link>/filter-network-requests-using-google-chrome-developer-tools/</link>
+		<comments>/filter-network-requests-using-google-chrome-developer-tools/#respond</comments>
+		<pubDate>Sun, 13 Aug 2017 02:28:44 +0000</pubDate>
+		<dc:creator><![CDATA[ajitgoel]]></dc:creator>
+				<category><![CDATA[Post]]></category>
+		<category><![CDATA[Debugging]]></category>
+
+		<guid isPermaLink="false">/?p=1331</guid>
+		<description><![CDATA[<p>When you are debugging, you would like to filter out the various requests so you can concentrate on what&#8217;s important eg: filter image or css file requests. Google has finally listened to the developer community and has added support for &#8220;negative filters&#8221; in Google Chrome-version 42. Here is the text filter I use when debugging [&#8230;]</p>
+<p>The post <a rel="nofollow" href="/filter-network-requests-using-google-chrome-developer-tools/">Filter network requests when debugging.</a> appeared first on <a rel="nofollow" href="/">So many manuals, so little time</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>When you are debugging, you would like to filter out the various requests so you can concentrate on what&#8217;s important eg: filter image or css file requests. Google has finally listened to the developer community and has added support for &#8220;negative filters&#8221; in Google Chrome-version 42.<br />
+Here is the text filter I use when debugging where the &#8220;-&#8221; sign before each file extension keyword filters the requests. The requests then do not show in the &#8220;Network&#8221; tab:</p>
+<pre class="brush: csharp; title: ; notranslate">-png -svg -aspx -axd -jpg -css -ttf -js -gif -ico -woff2</pre>
+<p><img class="alignnone wp-image-1341 size-full" src="/wp-content/uploads/2017/08/2017-08-14-08_55_09-Clipboard.jpg" alt="" width="772" height="96" srcset="/wp-content/uploads/2017/08/2017-08-14-08_55_09-Clipboard.jpg 772w, /wp-content/uploads/2017/08/2017-08-14-08_55_09-Clipboard-300x37.jpg 300w, /wp-content/uploads/2017/08/2017-08-14-08_55_09-Clipboard-768x96.jpg 768w" sizes="(max-width: 772px) 100vw, 772px" /><br />
+When you are adding the text filter make sure that the &#8220;Regex&#8221; checkbox is unchecked.</p>
+<p>You can further filter the requests by using the following supported keywords</p>
+<p><img src="/wp-content/uploads/2017/08/081317_0228_Filternetwo2.png" alt="" /></p>
+<p>eg:</p>
+<pre class="brush: csharp; title: ; notranslate">-mime-type:image/png,-larger-than:20k,-domain:yoursite.com,-status-code:404</pre>
+<p>The post <a rel="nofollow" href="/filter-network-requests-using-google-chrome-developer-tools/">Filter network requests when debugging.</a> appeared first on <a rel="nofollow" href="/">So many manuals, so little time</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>/filter-network-requests-using-google-chrome-developer-tools/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Fiddler not capturing traffic from browsers</title>
+		<link>/fiddler-not-capturing-traffic-from-browsers/</link>
+		<comments>/fiddler-not-capturing-traffic-from-browsers/#respond</comments>
+		<pubDate>Mon, 13 Mar 2017 17:50:19 +0000</pubDate>
+		<dc:creator><![CDATA[ajitgoel]]></dc:creator>
+				<category><![CDATA[Post]]></category>
+		<category><![CDATA[Debugging]]></category>
+		<category><![CDATA[Fiddler]]></category>
+
+		<guid isPermaLink="false">/?p=1292</guid>
+		<description><![CDATA[<p>Sometimes when you are trying to capture browser traffic for debugging, Fiddler does not capture the same. One of the options to try is to make sure that the &#8220;Use Filters&#8221; checkbox is unchecked in the &#8220;Filters&#8221; tab in Fiddler. You can also troubleshoot filters to see which filters are hiding your traffic. If this [&#8230;]</p>
+<p>The post <a rel="nofollow" href="/fiddler-not-capturing-traffic-from-browsers/">Fiddler not capturing traffic from browsers</a> appeared first on <a rel="nofollow" href="/">So many manuals, so little time</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>Sometimes when you are trying to capture browser traffic for debugging, Fiddler does not capture the same.<br />
+One of the options to try is to make sure that the &#8220;Use Filters&#8221; checkbox is unchecked in the &#8220;Filters&#8221; tab in Fiddler.</p>
+<p><img src="/wp-content/uploads/2017/03/031317_1750_Fiddlernotc1.png" alt="" /></p>
+<p>You can also troubleshoot filters to see which filters are hiding your traffic.</p>
+<p><img src="/wp-content/uploads/2017/03/031317_1750_Fiddlernotc2.png" alt="" /></p>
+<p><img src="/wp-content/uploads/2017/03/031317_1750_Fiddlernotc3.png" alt="" /></p>
+<p>If this does not work then you might have an extension (Like ZenMate or TunnelBear) installed that might have messed with your traffic. You might need to disable those extensions to ensure that Fiddler captures all the traffic from the browser.</p>
+<p>The post <a rel="nofollow" href="/fiddler-not-capturing-traffic-from-browsers/">Fiddler not capturing traffic from browsers</a> appeared first on <a rel="nofollow" href="/">So many manuals, so little time</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>/fiddler-not-capturing-traffic-from-browsers/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Only step into our files when debugging in Chrome Developer tools.</title>
+		<link>/only-step-into-our-files-when-debugging-in-chrome-developer-tools/</link>
+		<comments>/only-step-into-our-files-when-debugging-in-chrome-developer-tools/#respond</comments>
+		<pubDate>Mon, 06 Mar 2017 19:56:59 +0000</pubDate>
+		<dc:creator><![CDATA[ajitgoel]]></dc:creator>
+				<category><![CDATA[Post]]></category>
+		<category><![CDATA[Debugging]]></category>
+		<category><![CDATA[Javascript]]></category>
+
+		<guid isPermaLink="false">/?p=1262</guid>
+		<description><![CDATA[<p>A lot of times when we are debugging our front end javascript code using Chrome Developer tools, the system steps into other files. To avoid this, we can ask the debugger to ignore these files by &#8220;blackboxing&#8221; them. To do this, right click on the file and click &#8220;blackbox script&#8221; To get to the blackboxed [&#8230;]</p>
+<p>The post <a rel="nofollow" href="/only-step-into-our-files-when-debugging-in-chrome-developer-tools/">Only step into our files when debugging in Chrome Developer tools.</a> appeared first on <a rel="nofollow" href="/">So many manuals, so little time</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>A lot of times when we are debugging our front end javascript code using Chrome Developer tools,</p>
+<p><img src="/wp-content/uploads/2017/03/030617_1956_Onlystepint1.png" alt="" /></p>
+<p>the system steps into other files. To avoid this, we can ask the debugger to ignore these files by &#8220;blackboxing&#8221; them. To do this, right click on the file and click &#8220;blackbox script&#8221;</p>
+<p><img src="/wp-content/uploads/2017/03/030617_1956_Onlystepint2.png" alt="" /></p>
+<p>To get to the blackboxed files, go to the &#8220;settings&#8221; section by clicking on the symbol as shown below or press F1.</p>
+<p><img src="/wp-content/uploads/2017/03/030617_1956_Onlystepint3.png" alt="" /></p>
+<p>The &#8220;blackboxing&#8221; tab shows all the files that have been blackboxed.</p>
+<p><img src="/wp-content/uploads/2017/03/030617_1956_Onlystepint4.png" alt="" /></p>
+<p>The post <a rel="nofollow" href="/only-step-into-our-files-when-debugging-in-chrome-developer-tools/">Only step into our files when debugging in Chrome Developer tools.</a> appeared first on <a rel="nofollow" href="/">So many manuals, so little time</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>/only-step-into-our-files-when-debugging-in-chrome-developer-tools/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+	</channel>
+</rss>
+
+<!-- Performance optimized by W3 Total Cache. Learn more: https://www.w3-edge.com/products/
+
+ Served from: www.ajitgoel.net @ 2017-09-27 03:24:11 by W3 Total Cache -->

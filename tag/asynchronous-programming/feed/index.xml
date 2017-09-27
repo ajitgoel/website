@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>Asynchronous Programming &#8211; So many manuals, so little time</title>
+	<atom:link href="/tag/asynchronous-programming/feed/" rel="self" type="application/rss+xml" />
+	<link>/</link>
+	<description>So many manuals, so little time</description>
+	<lastBuildDate>Sun, 03 Sep 2017 21:30:50 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=4.8.2</generator>
+	<item>
+		<title>Exception handling in Async methods</title>
+		<link>/exception-handling-in-async-methods/</link>
+		<comments>/exception-handling-in-async-methods/#respond</comments>
+		<pubDate>Thu, 30 Jun 2016 05:07:59 +0000</pubDate>
+		<dc:creator><![CDATA[ajitgoel]]></dc:creator>
+				<category><![CDATA[Post]]></category>
+		<category><![CDATA[.Net]]></category>
+		<category><![CDATA[Asynchronous Programming]]></category>
+		<category><![CDATA[C#]]></category>
+
+		<guid isPermaLink="false">/?p=908</guid>
+		<description><![CDATA[<p>Scenario 1: Take the following method for example: Scenario 2.a: We can change the code in Scenario 1 to move the exception handling inside the AsyncTaskWithAPossibleException method. Scenario 2.b.: : Instead of handling the exception in the AsyncTaskWithAPossibleException method, we can also change the return type from void to Task(For a Async method, it is [&#8230;]</p>
+<p>The post <a rel="nofollow" href="/exception-handling-in-async-methods/">Exception handling in Async methods</a> appeared first on <a rel="nofollow" href="/">So many manuals, so little time</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p><strong>Scenario 1: </strong>Take the following method for example:</p>
+<pre class="brush: csharp; highlight: [9,10,11,16]; title: ; notranslate">
+public async void AsyncTaskWithAPossibleException()
+{     
+    //code that generates exception
+}
+public void MethodCallingAsyncTaskMethod()
+{
+    try
+    {
+        //Exceptions thrown by the AsyncTaskWithAPossibleException cannot be caught 
+        //using the try catch block. It might crash the running process in most 
+        //scenarios. 
+        AsyncTaskWithAPossibleException();
+    }
+    catch (Exception)
+    {
+        // exception won't be caught
+    }
+}
+</pre>
+<p><strong>Scenario 2.a: </strong> We can change the code in Scenario 1 to move the exception handling inside the AsyncTaskWithAPossibleException method. </p>
+<pre class="brush: csharp; highlight: [3,4,5,6,7,8,9,10]; title: ; notranslate">
+public async void AsyncTaskWithAPossibleException()
+{
+    try
+    {
+        //code that generates exception
+    }
+    catch(Exception)
+    {
+        // Handle exception
+    }
+}
+public void MethodCallingAsyncTaskMethod()
+{
+    AsyncTaskWithAPossibleException();
+}
+</pre>
+<p><strong>Scenario 2.b.: </strong>: Instead of handling the exception in the AsyncTaskWithAPossibleException method, we can also change the return type from void to Task(For a Async method, it is recommended to return a Task instead of a void).<br />
+Exception raised in the AsyncTaskWithAPossibleException method will be saved in the returning Task instance. When we await the AsyncTaskWithAPossibleException method, the exception saved in the Task will get rethrown with its stack trace preserved.</p>
+<pre class="brush: csharp; highlight: [1,5,9,13]; title: ; notranslate">
+public async Task AsyncTaskWithAPossibleException()
+{
+    //code that generates exception
+}
+public async Task MethodCallingAsyncTaskMethod()
+{
+    try
+    {
+        await AsyncTaskWithAPossibleException();
+    }
+    catch (Exception)
+    {
+        // exception is caught with stack trace preserved
+    }
+}
+</pre>
+<p><strong>Scenario 3: </strong> If for some reason we don’t await the Task, we can define a continuation when the Task ends with the faulted state.</p>
+<pre class="brush: csharp; highlight: [1,5,7,8,9,10,11]; title: ; notranslate">
+public async Task AsyncTaskWithAPossibleException()
+{
+    //code that generates exception
+}
+public void MethodCallingAsyncTaskMethod()
+{
+    var task = AsyncTaskWithAPossibleException();
+    task.ContinueWith(t =&gt;
+    {
+        //  handle t.Exception
+    }, TaskContinuationOptions.OnlyOnFaulted);
+}
+</pre>
+<p><strong>Scenario 4: </strong> If for some reason we don’t await the Task and we do not define a continuation when the Task ends with the faulted state, the exception saved inside the instance will be raised eventually when the GC collects the object. You can catch that silent exception using the TaskScheduler event UnobservedTaskException. </p>
+<p>The post <a rel="nofollow" href="/exception-handling-in-async-methods/">Exception handling in Async methods</a> appeared first on <a rel="nofollow" href="/">So many manuals, so little time</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>/exception-handling-in-async-methods/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+	</channel>
+</rss>
+
+<!-- Performance optimized by W3 Total Cache. Learn more: https://www.w3-edge.com/products/
+
+ Served from: www.ajitgoel.net @ 2017-09-27 03:23:57 by W3 Total Cache -->

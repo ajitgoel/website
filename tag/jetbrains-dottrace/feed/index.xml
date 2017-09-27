@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>JetBrains DotTrace &#8211; So many manuals, so little time</title>
+	<atom:link href="/tag/jetbrains-dottrace/feed/" rel="self" type="application/rss+xml" />
+	<link>/</link>
+	<description>So many manuals, so little time</description>
+	<lastBuildDate>Sun, 03 Sep 2017 21:30:50 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=4.8.2</generator>
+	<item>
+		<title>Performance Improvement for very important client</title>
+		<link>/performance-improvement-for-very-important-client/</link>
+		<comments>/performance-improvement-for-very-important-client/#respond</comments>
+		<pubDate>Wed, 10 Feb 2016 21:11:54 +0000</pubDate>
+		<dc:creator><![CDATA[ajitgoel]]></dc:creator>
+				<category><![CDATA[Post]]></category>
+		<category><![CDATA[.Net]]></category>
+		<category><![CDATA[C#]]></category>
+		<category><![CDATA[JetBrains DotTrace]]></category>
+		<category><![CDATA[Linq]]></category>
+		<category><![CDATA[Performance Optimization]]></category>
+
+		<guid isPermaLink="false">http://blog-goel.rhcloud.com/?p=1</guid>
+		<description><![CDATA[<p>This data is for all our clients that use our application. Based on the data below there is a significant performance improvement in the application performance in the latest release. Please see highlighted area below. The latest release took place on March 2016. One of our biggest clients was threatening to leave us for another provider. [&#8230;]</p>
+<p>The post <a rel="nofollow" href="/performance-improvement-for-very-important-client/">Performance Improvement for very important client</a> appeared first on <a rel="nofollow" href="/">So many manuals, so little time</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>This data is for all our clients that use our application. Based on the data below there is a significant performance improvement in the application performance in the latest release. Please see highlighted area below. The latest release took place on March 2016.</p>
+<p><img class="alignnone wp-image-5" src="http://blog-goel.rhcloud.com/wp-content/uploads/2016/02/March2016PerformanceImprovement-300x129.png" alt="March2016PerformanceImprovement" width="584" height="264" /></p>
+<p>One of our biggest clients was threatening to leave us for another provider. Its users were experiencing very long load times(more than a minute in some cases), timeouts etc. I profiled the application using JetBrains DotTrace. All the hotspots in the profiler trace pointed to a very complex stored procedure being called again and again in the application. Since the stored procedure was very complex and used by several other applications it was decided to not change it. Instead we decided to store the results of this stored procedure in session. This lead to the dramatic performance improvement as shown above.</p>
+<pre class="brush: csharp; highlight: [10,11,12,13,14,15,16,17,18,19,20]; title: ; notranslate">
+    using System.Web;
+    public class RentableItemsStrategy
+    {
+        public RentableItemsStrategy()
+        {
+        }
+
+        public RentableTypes Get(int unitId, string dateNeeded, int leaseId)
+        {
+            var keyTemp = Key(unitId, dateNeeded, leaseId);
+            if (HttpContext.Current == null || HttpContext.Current.Session == null)
+            {
+                return null;
+            }
+            
+            var rentableTypesForUnitIdDateNeededLeaseId = HttpContext.Current.Session[keyTemp] as RentableTypes;
+            if (rentableTypesForUnitIdDateNeededLeaseId != null)
+            {
+                return rentableTypesForUnitIdDateNeededLeaseId;
+            }
+            
+            var xmlNode = new ServiceAgent.ResidentSvc().GetRentableItems(unitId, dateNeeded, leaseId);
+            var rentableTypes = RentableTypes.FromXml(xmlNode);
+            HttpContext.Current.Session[keyTemp] = rentableTypes;
+            return rentableTypes;
+        }
+
+        private string Key(int unitId, string dateNeeded, int leaseId)
+        {
+            return string.Format(&quot;RentableTypes-{0}-{1}-{2}&quot;, unitId, dateNeeded, leaseId);
+        }
+    }
+</pre>
+<p>The post <a rel="nofollow" href="/performance-improvement-for-very-important-client/">Performance Improvement for very important client</a> appeared first on <a rel="nofollow" href="/">So many manuals, so little time</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>/performance-improvement-for-very-important-client/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+	</channel>
+</rss>
+
+<!-- Performance optimized by W3 Total Cache. Learn more: https://www.w3-edge.com/products/
+
+ Served from: www.ajitgoel.net @ 2017-09-27 03:24:24 by W3 Total Cache -->

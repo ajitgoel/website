@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>Fiddler &#8211; So many manuals, so little time</title>
+	<atom:link href="/tag/fiddler/feed/" rel="self" type="application/rss+xml" />
+	<link>/</link>
+	<description>So many manuals, so little time</description>
+	<lastBuildDate>Sun, 03 Sep 2017 21:30:50 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=4.8.2</generator>
+	<item>
+		<title>Configure fiddler to not capture requests for certain domains</title>
+		<link>/configure-fiddler-to-not-capture-requests-for-certain-domains/</link>
+		<comments>/configure-fiddler-to-not-capture-requests-for-certain-domains/#respond</comments>
+		<pubDate>Fri, 24 Mar 2017 18:27:55 +0000</pubDate>
+		<dc:creator><![CDATA[ajitgoel]]></dc:creator>
+				<category><![CDATA[Post]]></category>
+		<category><![CDATA[Fiddler]]></category>
+
+		<guid isPermaLink="false">/?p=1314</guid>
+		<description><![CDATA[<p>When you are debugging using fiddler, fiddler generally captures requests from all the domains. An easy way to not capture requests from certain domains is to use the build in &#8220;filters&#8221; tab in fiddler. Use the &#8220;Hide the following hosts&#8221; dropdown and key in the list of all the domains that you want to hide. [&#8230;]</p>
+<p>The post <a rel="nofollow" href="/configure-fiddler-to-not-capture-requests-for-certain-domains/">Configure fiddler to not capture requests for certain domains</a> appeared first on <a rel="nofollow" href="/">So many manuals, so little time</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>When you are debugging using fiddler, fiddler generally captures requests from all the domains. An easy way to not capture requests from certain domains is to use the build in &#8220;filters&#8221; tab in fiddler. Use the &#8220;Hide the following hosts&#8221; dropdown and key in the list of all the domains that you want to hide. </p>
+<p><img src="/wp-content/uploads/2017/03/032417_1827_Configurefi1.png" alt=""/></p>
+<p>If you want more granular control then you can override the OnBeforeRequest method in Fiddler&#8217;s script using <a href="http://www.telerik.com/download/fiddler/fiddlerscript-editor">Fiddler&#8217;s Script Editor</a>.<br />
+<img src="/wp-content/uploads/2017/03/032417_1827_Configurefi2.png" alt=""/></p>
+<pre class="brush: csharp; highlight: [1,3,4,5,6,7,8,9,10,11,12,13,14]; title: ; notranslate">
+static function OnBeforeRequest(oSession: Session) {        
+        if (
+        	oSession.HostnameIs(&quot;www.google.com&quot;) || 
+        	oSession.HostnameIs(&quot;inbox.google.com&quot;) || 
+        	oSession.HostnameIs(&quot;13.client-channel.google.com&quot;) || 
+        	oSession.HostnameIs(&quot;d.docs.live.net&quot;) || 
+        	oSession.HostnameIs(&quot;slack.com&quot;) || 
+        	oSession.HostnameIs(&quot;notifications.google.com&quot;) || 
+        	oSession.HostnameIs(&quot;play.google.com&quot;) || 
+        	oSession.HostnameIs(&quot;cello.client-channel.google.com&quot;) || 
+        	oSession.HostnameIs(&quot;lp-push-server-777.lastpass.com&quot;) || 
+        	oSession.HostnameIs(&quot;ssl.gstatic.com&quot;) || 
+        	oSession.HostnameIs(&quot;clients4.google.com&quot;) || 
+        	oSession.HostnameIs(&quot;clients1.google.com&quot;)
+        )
+        {  
+            oSession[&quot;ui-hide&quot;] = &quot;hidden&quot;;    
+        }
+        //code omitted for brevity
+}
+</pre>
+<p>The post <a rel="nofollow" href="/configure-fiddler-to-not-capture-requests-for-certain-domains/">Configure fiddler to not capture requests for certain domains</a> appeared first on <a rel="nofollow" href="/">So many manuals, so little time</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>/configure-fiddler-to-not-capture-requests-for-certain-domains/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Fiddler not capturing traffic from browsers</title>
+		<link>/fiddler-not-capturing-traffic-from-browsers/</link>
+		<comments>/fiddler-not-capturing-traffic-from-browsers/#respond</comments>
+		<pubDate>Mon, 13 Mar 2017 17:50:19 +0000</pubDate>
+		<dc:creator><![CDATA[ajitgoel]]></dc:creator>
+				<category><![CDATA[Post]]></category>
+		<category><![CDATA[Debugging]]></category>
+		<category><![CDATA[Fiddler]]></category>
+
+		<guid isPermaLink="false">/?p=1292</guid>
+		<description><![CDATA[<p>Sometimes when you are trying to capture browser traffic for debugging, Fiddler does not capture the same. One of the options to try is to make sure that the &#8220;Use Filters&#8221; checkbox is unchecked in the &#8220;Filters&#8221; tab in Fiddler. You can also troubleshoot filters to see which filters are hiding your traffic. If this [&#8230;]</p>
+<p>The post <a rel="nofollow" href="/fiddler-not-capturing-traffic-from-browsers/">Fiddler not capturing traffic from browsers</a> appeared first on <a rel="nofollow" href="/">So many manuals, so little time</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>Sometimes when you are trying to capture browser traffic for debugging, Fiddler does not capture the same.<br />
+One of the options to try is to make sure that the &#8220;Use Filters&#8221; checkbox is unchecked in the &#8220;Filters&#8221; tab in Fiddler.</p>
+<p><img src="/wp-content/uploads/2017/03/031317_1750_Fiddlernotc1.png" alt="" /></p>
+<p>You can also troubleshoot filters to see which filters are hiding your traffic.</p>
+<p><img src="/wp-content/uploads/2017/03/031317_1750_Fiddlernotc2.png" alt="" /></p>
+<p><img src="/wp-content/uploads/2017/03/031317_1750_Fiddlernotc3.png" alt="" /></p>
+<p>If this does not work then you might have an extension (Like ZenMate or TunnelBear) installed that might have messed with your traffic. You might need to disable those extensions to ensure that Fiddler captures all the traffic from the browser.</p>
+<p>The post <a rel="nofollow" href="/fiddler-not-capturing-traffic-from-browsers/">Fiddler not capturing traffic from browsers</a> appeared first on <a rel="nofollow" href="/">So many manuals, so little time</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>/fiddler-not-capturing-traffic-from-browsers/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Show traffic from only certain hosts in Fiddler</title>
+		<link>/show-traffic-from-only-certain-hosts-in-fiddler/</link>
+		<comments>/show-traffic-from-only-certain-hosts-in-fiddler/#respond</comments>
+		<pubDate>Wed, 13 Apr 2016 18:46:14 +0000</pubDate>
+		<dc:creator><![CDATA[ajitgoel]]></dc:creator>
+				<category><![CDATA[Fiddler]]></category>
+
+		<guid isPermaLink="false">http://blog-goel.rhcloud.com/?p=589</guid>
+		<description><![CDATA[<p>A lot of times when we &#8220;show traffic&#8221; in Fiddler, way too much traffic gets logged. To cut the &#8220;noise&#8221; out, we want to show traffic from only certain hosts. To do this: Check the &#8220;use filters&#8221; checkbox. In the &#8220;Show only the following hosts&#8221; textbox, type the names of the hosts separated by colon. [&#8230;]</p>
+<p>The post <a rel="nofollow" href="/show-traffic-from-only-certain-hosts-in-fiddler/">Show traffic from only certain hosts in Fiddler</a> appeared first on <a rel="nofollow" href="/">So many manuals, so little time</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p>A lot of times when we &#8220;show traffic&#8221; in Fiddler, way too much traffic gets logged. To cut the &#8220;noise&#8221; out, we want to show traffic from only certain hosts. To do this:</p>
+<ul>
+<li>Check the &#8220;use filters&#8221; checkbox.</li>
+<li>In the &#8220;Show only the following hosts&#8221; textbox, type the names of the hosts separated by colon. </li>
+<li>If you have several similar hosts then you can use wildcards also.<br />
+Example: If you want to log the requests for drive.realpage.com, photos.realpage.com then instead of listing each one of them, you can use *.realpage.com. See below for an example</li>
+</ul>
+<p><img class="wp-image-591 aligncenter" src="http://blog-goel.rhcloud.com/wp-content/uploads/2016/04/FiddlerFiltersTab-300x98.png" alt="FiddlerFiltersTab" width="597" height="195" srcset="/wp-content/uploads/2016/04/FiddlerFiltersTab-300x98.png 300w, /wp-content/uploads/2016/04/FiddlerFiltersTab.png 606w" sizes="(max-width: 597px) 100vw, 597px" /></p>
+<p>The post <a rel="nofollow" href="/show-traffic-from-only-certain-hosts-in-fiddler/">Show traffic from only certain hosts in Fiddler</a> appeared first on <a rel="nofollow" href="/">So many manuals, so little time</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>/show-traffic-from-only-certain-hosts-in-fiddler/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+	</channel>
+</rss>
+
+<!-- Performance optimized by W3 Total Cache. Learn more: https://www.w3-edge.com/products/
+
+ Served from: www.ajitgoel.net @ 2017-09-27 03:24:17 by W3 Total Cache -->

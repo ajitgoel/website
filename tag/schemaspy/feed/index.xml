@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>SchemaSpy &#8211; So many manuals, so little time</title>
+	<atom:link href="/tag/schemaspy/feed/" rel="self" type="application/rss+xml" />
+	<link>/</link>
+	<description>So many manuals, so little time</description>
+	<lastBuildDate>Sun, 03 Sep 2017 21:30:50 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=4.8.2</generator>
+	<item>
+		<title>Document database using SchemaSpy and Graphviz</title>
+		<link>/document-database-using-schemaspy-and-graphviz/</link>
+		<comments>/document-database-using-schemaspy-and-graphviz/#respond</comments>
+		<pubDate>Fri, 05 Aug 2016 14:21:53 +0000</pubDate>
+		<dc:creator><![CDATA[ajitgoel]]></dc:creator>
+				<category><![CDATA[Post]]></category>
+		<category><![CDATA[Graphviz]]></category>
+		<category><![CDATA[SchemaSpy]]></category>
+		<category><![CDATA[SQL server]]></category>
+
+		<guid isPermaLink="false">/?p=1190</guid>
+		<description><![CDATA[<p>SchemaSpy is a Java-based tool (requires Java 5 or higher) that analyzes the metadata of a schema in a database and generates a visual representation of it in a browser-displayable format. It lets you click through the hierarchy of database tables via child and parent table relationships as represented by both HTML links and entity-relationship [&#8230;]</p>
+<p>The post <a rel="nofollow" href="/document-database-using-schemaspy-and-graphviz/">Document database using SchemaSpy and Graphviz</a> appeared first on <a rel="nofollow" href="/">So many manuals, so little time</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p><strong>SchemaSpy </strong>is a Java-based tool (requires Java 5 or higher) that analyzes the metadata of a schema in a database and generates a visual representation of it in a browser-displayable format. It lets you click through the hierarchy of database tables via child and parent table relationships as represented by both HTML links and entity-relationship diagrams. See <a href="http://schemaspy.sourceforge.net/">here</a> for more information.<br />
+<strong>Graphviz </strong>is open source graph visualization software. Graph visualization is a way of representing structural information as diagrams of abstract graphs and networks. See <a href="http://www.graphviz.org/">here</a> for more information.<br />
+<strong>jTDS </strong>is an open source JDBC driver for Microsoft SQL Server and Sybase databases. See <a href="http://jtds.sourceforge.net/">here</a> for more information</p>
+<p>We will use SchemaSpy, Graphviz and JTDS to document a SQL server database.</p>
+<p><strong>Step 1:</strong> Download Graphviz from the <a href="http://www.graphviz.org/Download.php">following</a> location<br />
+<strong>Step 2:</strong> Open command prompt in Administrator mode. Change to the directory where the Graphviz msi file has been downloaded and run the</p>
+<pre class="brush: csharp; title: ; notranslate">msiexec /a graphviz-2.38.msi</pre>
+<p>command. As of 8/4/2016, the latest version of Graphviz is 2.38. Run through the various steps of the Graphviz installer.<br />
+<strong>Step 3:</strong> Add the Graphviz bin folder path to the &#8220;Path&#8221; &#8220;system variables&#8221; in &#8220;Environment variables&#8221;. The path of the bin folder on my machine was &#8220;C:\Program Files (x86)\Graphviz2.38\bin&#8221;.<br />
+<img class="aligncenter wp-image-1197 size-large" src="/wp-content/uploads/2016/08/2016-08-04_22-16-49-1024x517.jpg" alt="2016-08-04_22-16-49" width="665" height="336" srcset="/wp-content/uploads/2016/08/2016-08-04_22-16-49-1024x517.jpg 1024w, /wp-content/uploads/2016/08/2016-08-04_22-16-49-300x152.jpg 300w, /wp-content/uploads/2016/08/2016-08-04_22-16-49-768x388.jpg 768w, /wp-content/uploads/2016/08/2016-08-04_22-16-49.jpg 1140w" sizes="(max-width: 665px) 100vw, 665px" /></p>
+<p><img class="aligncenter wp-image-1198 size-large" src="/wp-content/uploads/2016/08/2016-08-04_22-21-50-1024x523.jpg" alt="2016-08-04_22-21-50" width="665" height="340" srcset="/wp-content/uploads/2016/08/2016-08-04_22-21-50-1024x523.jpg 1024w, /wp-content/uploads/2016/08/2016-08-04_22-21-50-300x153.jpg 300w, /wp-content/uploads/2016/08/2016-08-04_22-21-50-768x392.jpg 768w, /wp-content/uploads/2016/08/2016-08-04_22-21-50.jpg 1143w" sizes="(max-width: 665px) 100vw, 665px" /><br />
+<strong>Step 4:</strong> Download Schema Spy from the <a href="https://sourceforge.net/projects/schemaspy/files/schemaspy/">following </a>location. As of 8/4/2016, the latest version is 5.0.0.<br />
+<strong>Step 5:</strong> Download and unzip the latest JTDS drivers for SQL server from the <a href="https://sourceforge.net/projects/jtds/files/">following </a>location. As of 8/4/2016, the latest version is 1.3.1.<br />
+<strong>Step 6:</strong> For the database being documented, make sure that TCP\IP protocol is enabled and the TCP\IP port points to the port name in step no 7 below(i.e 1433 in this case). This can be configured using &#8220;SQL server configuration manager&#8221; for SQL server database. </p>
+<p><img class="aligncenter wp-image-1214 size-full" src="/wp-content/uploads/2016/08/2016-08-05_0-13-07.jpg" alt="2016-08-05_0-13-07" width="968" height="547" srcset="/wp-content/uploads/2016/08/2016-08-05_0-13-07.jpg 968w, /wp-content/uploads/2016/08/2016-08-05_0-13-07-300x170.jpg 300w, /wp-content/uploads/2016/08/2016-08-05_0-13-07-768x434.jpg 768w" sizes="(max-width: 968px) 100vw, 968px" /></p>
+<p><strong>Step 7:</strong> Restart database server using the services snapin.</p>
+<p><strong>Step 8:</strong> Run the following command to generate the documentation for the database.</p>
+<pre class="brush: csharp; title: ; notranslate">
+java -jar schemaSpy_5.0.0.jar -t mssql05-jtds -db SqlTuning -host localhost 
+-port 1433 -u sa1 -p sa1 -o SqlTuningDocumentation 
+-dp C:\Downloads\jtds-1.3.1-dist\jtds-1.3.1.jar -s dbo -loglevel fine
+</pre>
+<p>The post <a rel="nofollow" href="/document-database-using-schemaspy-and-graphviz/">Document database using SchemaSpy and Graphviz</a> appeared first on <a rel="nofollow" href="/">So many manuals, so little time</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>/document-database-using-schemaspy-and-graphviz/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+	</channel>
+</rss>
+
+<!-- Performance optimized by W3 Total Cache. Learn more: https://www.w3-edge.com/products/
+
+ Served from: www.ajitgoel.net @ 2017-09-27 03:24:35 by W3 Total Cache -->

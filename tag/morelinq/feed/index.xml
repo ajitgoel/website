@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>MoreLinq &#8211; So many manuals, so little time</title>
+	<atom:link href="/tag/morelinq/feed/" rel="self" type="application/rss+xml" />
+	<link>/</link>
+	<description>So many manuals, so little time</description>
+	<lastBuildDate>Sun, 03 Sep 2017 21:30:50 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=4.8.2</generator>
+	<item>
+		<title>Distinct on multiple properties in a collection</title>
+		<link>/distinct-on-multiple-properties-in-a-collection/</link>
+		<comments>/distinct-on-multiple-properties-in-a-collection/#respond</comments>
+		<pubDate>Sun, 17 Apr 2016 05:09:39 +0000</pubDate>
+		<dc:creator><![CDATA[ajitgoel]]></dc:creator>
+				<category><![CDATA[Post]]></category>
+		<category><![CDATA[.Net]]></category>
+		<category><![CDATA[C#]]></category>
+		<category><![CDATA[Linq]]></category>
+		<category><![CDATA[MoreLinq]]></category>
+
+		<guid isPermaLink="false">http://blog-goel.rhcloud.com/?p=637</guid>
+		<description><![CDATA[<p>Problem: How do I get distinct members of a collection, based on multiple properties? Solution: Use MoreLinq to get distinct members of a collection, based on multiple properties. eg: For our application, each member in the household was supposed to have a unique combination of driver&#8217;s licence number and driver&#8217;s state.</p>
+<p>The post <a rel="nofollow" href="/distinct-on-multiple-properties-in-a-collection/">Distinct on multiple properties in a collection</a> appeared first on <a rel="nofollow" href="/">So many manuals, so little time</a>.</p>
+]]></description>
+				<content:encoded><![CDATA[<p><strong>Problem:</strong><br />
+How do I get distinct members of a collection, based on multiple properties?</p>
+<p><strong>Solution:</strong><br />
+Use <a href="https://www.nuget.org/packages/morelinq/">MoreLinq</a> to get distinct members of a collection, based on multiple properties.<br />
+eg: For our application, each member in the household was supposed to have a unique combination of driver&#8217;s licence number and driver&#8217;s state. </p>
+<pre class="brush: csharp; title: ; notranslate"> 
+var query = household.DistinctBy(
+            counter =&gt; new { counter.DriverLicenceNumber, counter.DriverLicenceState });
+</pre>
+<p>The post <a rel="nofollow" href="/distinct-on-multiple-properties-in-a-collection/">Distinct on multiple properties in a collection</a> appeared first on <a rel="nofollow" href="/">So many manuals, so little time</a>.</p>
+]]></content:encoded>
+			<wfw:commentRss>/distinct-on-multiple-properties-in-a-collection/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+	</channel>
+</rss>
+
+<!-- Performance optimized by W3 Total Cache. Learn more: https://www.w3-edge.com/products/
+
+ Served from: www.ajitgoel.net @ 2017-09-27 03:24:28 by W3 Total Cache -->
